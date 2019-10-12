@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import request from "superagent";
 
+import Profile from "./Profile"
+
 export default function Proflie() {
 
   const [user, setUser] = useState({});
@@ -15,8 +17,7 @@ export default function Proflie() {
   }, [])
   return (
     <>
-      <p>user: {user.name}</p>
-      <p>primary instrument: {user.primaryInstrument}</p>
+      <Profile userName={user.name} primaryInstrument={user.primaryInstrument} />
     </>
   )
 }
