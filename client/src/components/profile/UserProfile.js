@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import request from "superagent";
 
+import Profile from "./Profile";
+
 export default function UserProfile() {
 	const id = window.location.href.slice(-24)
 	const [user, setUser] = useState({});
@@ -13,8 +15,7 @@ export default function UserProfile() {
 	}, [])
 	return (
 		<>
-			<p>user: {user.name}</p>
-			<p>primary instrument: {user.primaryInstrument}</p>
+			<Profile userName={user.name} primaryInstrument={user.primaryInstrument} />
 		</>
 	)
 }
