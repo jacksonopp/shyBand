@@ -36,7 +36,6 @@ class Dashboard extends Component {
             >
               Logout
             </button>
-            <Link to="/proflie">proflie</Link>
           </div>
         </div>
       </div>
