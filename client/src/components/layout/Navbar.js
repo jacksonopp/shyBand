@@ -7,6 +7,7 @@ class Navbar extends Component {
       <span>navbar
         <Link to="/profile"> profile</Link>
         <Link to="/browse"> browse</Link>
+        <Link to="/updateBio"> bio</Link>
       </span>
     );
   }

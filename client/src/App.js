@@ -16,6 +16,7 @@ import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 import CurrentProfile from "./components/profile/CurrentProfile";
 import BrowsePage from "./components/browse/BrowsePage";
+import UpdateBio from "./components/userSettings/UpdateBio";
 
 import "./App.css";
 
@@ -52,6 +53,7 @@ class App extends Component {
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/profile" component={CurrentProfile} />
               <PrivateRoute exact path="/browse" component={BrowsePage} />
+              <PrivateRoute exact path="/updateBio" component={UpdateBio} />
             </Switch>
           </div>
         </Router>
