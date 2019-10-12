@@ -9,7 +9,6 @@ export default function Proflie() {
 		console.log(token);
 		request.get(`/api/user/${token}`)
 			.then(res => {
-				console.log(res.body);
 				setUser(res.body);
 			})
 			.catch(err => console.log(err))
