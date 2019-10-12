@@ -23,6 +23,7 @@ const db = require("./config/mongoose");
 
 // Passport middleware
 app.use(passport.initialize());
+require("./routes/apiRoutes.js")(app);
 
 // Passport config
 require("./config/passport")(passport);
