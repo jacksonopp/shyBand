@@ -19,6 +19,13 @@ module.exports = function (app) {
             err ? res.json(err) : res.json(data);
         })
     })
+
+    //update a user
+    app.put("/api/user/:token", (req, res) => {
+        res.json({ message: "connected to put route" });
+        console.log("user connected to $put /api/user/:token");
+        console.log(req.body);
+    })
     function decodeUserID(token) {
         const id = jwtDecode(token);
         return id.id;
