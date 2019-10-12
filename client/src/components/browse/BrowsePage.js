@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 import request from "superagent";
 
 export default function BrowsePage() {
   const [users, setUsers] = useState([])
   useEffect(() => {
     const token = localStorage.jwtToken.substr(7);
-    request.get(`/api/users/${token}`)
+    request.get(`/api/users/all/${token}`)
       .then(res => {
         console.log(res.body);
         setUsers(res.body);
@@ -16,7 +17,15 @@ export default function BrowsePage() {
     <>
       <h1>Browse</h1>
       {users.map(user => (
-        <p>{user.name}</p>
+        <>
+          <div>
+            <p>name: {user.name}</p>
+            <p>instrument: {user.primaryInstrument}</p>
+            <Link to={"profile/" + user._id}>View Proflie</Link>
+            <hr />
+          </div>
+        </>
+
       ))}
     </>
   )

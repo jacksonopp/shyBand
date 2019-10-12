@@ -16,8 +16,11 @@ import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 import CurrentProfile from "./components/profile/CurrentProfile";
 import BrowsePage from "./components/browse/BrowsePage";
+import UpdateBio from "./components/userSettings/UpdateBio";
+// import Id from "./components/profile/Id";
 
 import "./App.css";
+import UserProflie from "./components/profile/UserProfile";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -38,6 +41,28 @@ if (localStorage.jwtToken) {
     window.location.href = "./login";
   }
 }
+const routes = [
+  {
+    path: "/dashboard",
+    component: Dashboard
+  },
+  {
+    path: "/profile",
+    component: CurrentProfile
+  },
+  {
+    path: "/browse",
+    component: BrowsePage
+  },
+  {
+    path: "/updateBio",
+    component: UpdateBio
+  },
+  {
+    path: "/profile/:id",
+    component: Id
+  }
+]
 class App extends Component {
   render() {
     return (
@@ -49,9 +74,16 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Switch>
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              {routes.map(({ path, component }) => (
+                <PrivateRoute
+                  exact path={path}
+                  component={component}
+                />
+              ))}
+              {/* <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/profile" component={CurrentProfile} />
               <PrivateRoute exact path="/browse" component={BrowsePage} />
+              <PrivateRoute exact path="/updateBio" component={UpdateBio} /> */}
             </Switch>
           </div>
         </Router>
@@ -60,3 +92,8 @@ class App extends Component {
   }
 }
 export default App;
+
+function Id() {
+  // const { id } = useParams();
+  return <UserProflie />
+}
