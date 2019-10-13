@@ -15,27 +15,86 @@ module.exports = function (app) {
     })
     //get current specific user
     app.get("/api/user/:token", (req, res) => {
-        db.User.findById(decodeUserID(req.params.token)).exec((err, data) => {
-            err ? res.json(err) : res.json(data);
-        })
+        const id = decodeUserID(req.params.token);
+        db.User.findById(id)
+            .populate("instruments")
+            .populate("favoriteBands")
+            .populate("genre")
+            .exec((err, data) => {
+                err ? res.json(err) : res.json(data);
+            })
     })
 
     //update current user
-    app.put("/api/user/:token", (req, res) => {
+    app.put("/api/user/:token", async function (req, res) {
         // res.json({ message: "connected to put route" });
+        const id = decodeUserID(req.params.token);
         console.log("user connected to $put /api/user/:token");
+        console.log(req.body);
+        // updating instruments
         if (req.body.primaryInstrument) {
-            console.log("req.body");
-            console.log(req.body);
-            db.User.findByIdAndUpdate(
-                decodeUserID(req.params.token),
-                req.body,
-                { findAndModify: false }
-            )
-                .then(res.send("updated"))
-        } else {
-            console.log("invalid");
+            const dbInstrument = await db.Instrument.findOneAndUpdate(
+                { instrument: req.body.primaryInstrument },
+                { instrument: req.body.primaryInstrument },
+                {
+                    new: true,
+                    upsert: true
+                }
+            );
+            const dbUser = await db.User.findOneAndUpdate(
+                { _id: id },
+                {
+                    $addToSet: {
+                        instruments: dbInstrument._id,
+                    }
+                },
+                { new: true }
+            );
         }
+        // updating favorite bands
+        if (req.body.favBand) {
+            const dbFavBand = await db.FavoriteBand.findOneAndUpdate(
+                { bandName: req.body.favBand },
+                { bandName: req.body.favBand },
+                {
+                    new: true,
+                    upsert: true
+                }
+            );
+
+            const dbUser = await db.User.findOneAndUpdate(
+                { _id: id },
+                {
+                    $addToSet: {
+                        favoriteBands: dbFavBand._id,
+                    }
+                },
+                { new: true }
+            );
+        };
+        if (req.body.genre) {
+            const dbGenre = await db.Genre.findOneAndUpdate(
+                { genre: req.body.genre },
+                { genre: req.body.genre },
+                {
+                    new: true,
+                    upsert: true
+                }
+            );
+
+            const dbUser = await db.User.findOneAndUpdate(
+                { _id: id },
+                {
+                    $addToSet: {
+                        genre: dbGenre._id
+                    }
+                }
+            )
+        }
+        res.json({ message: "updated" });
+
+
+
     })
     //find another user
     app.get("/api/users/:id", (req, res) => {
