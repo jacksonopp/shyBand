@@ -100,9 +100,13 @@ module.exports = function (app) {
     app.get("/api/users/:id", (req, res) => {
         const id = req.params.id;
         console.log("connected");
-        db.User.findById(id).exec((err, data) => {
-            err ? res.send(err) : res.json(data);
-        })
+        db.User.findById(id)
+            .populate("instruments")
+            .populate("favoriteBands")
+            .populate("genre")
+            .exec((err, data) => {
+                err ? res.send(err) : res.json(data);
+            })
     })
     function decodeUserID(token) {
         const id = jwtDecode(token);
