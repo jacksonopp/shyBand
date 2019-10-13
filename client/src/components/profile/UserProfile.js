@@ -23,7 +23,7 @@ export default function UserProfile() {
 	}, [])
 	return (
 		<>
-			<Profile userName={user.name} instruments={instruments} favBands={band} genres={genre} />
+			<Profile userName={user.name} instruments={instruments} favBands={band} genres={genre} userId={id} />
 		</>
 	)
 }

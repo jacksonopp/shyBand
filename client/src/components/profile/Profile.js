@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Profile({ userName, instruments, favBands, genres }) {
+export default function Profile({ userName, instruments, favBands, genres, userId }) {
 	return (
 		<>
 			<p>user: {userName}</p>
@@ -15,6 +15,7 @@ export default function Profile({ userName, instruments, favBands, genres }) {
 			<p>genres: {genres.map(genre => (
 				<span>{genre.genre} </span>
 			))}</p>
+			<p>userID: {userId}</p>
 
 		</>
 	)
