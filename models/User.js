@@ -19,9 +19,28 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  primaryInstrument: {
+  instruments: [{
+    type: Schema.Types.ObjectId,
+    ref: "Instrument"
+  }],
+  username: {
     type: String,
     default: "not filled out yet"
+  },
+  favoriteBands:
+    [{
+      type: Schema.Types.ObjectId,
+      ref: "FavoriteBand"
+    }],
+  experience: {
+    type: Number
+  },
+  genre: [{
+    type: Schema.Types.ObjectId,
+    ref: "Genre"
+  }],
+  location: {
+    type: String
   }
 });
 
