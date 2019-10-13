@@ -21,6 +21,7 @@ import UpdateBio from "./components/userSettings/UpdateBio";
 
 import "./App.css";
 import UserProflie from "./components/profile/UserProfile";
+import SendMessagePage from "./components/message/SendMessagePage";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -61,6 +62,10 @@ const routes = [
   {
     path: "/profile/:id",
     component: Id
+  },
+  {
+    path: "/message/:id",
+    component: Message
   }
 ]
 class App extends Component {
@@ -96,4 +101,8 @@ export default App;
 function Id() {
   // const { id } = useParams();
   return <UserProflie />
+}
+
+function Message() {
+  return <SendMessagePage />
 }

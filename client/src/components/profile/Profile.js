@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Link } from "react-router-dom";
+
 export default function Profile({ userName, instruments, favBands, genres, userId }) {
 	return (
 		<>
@@ -16,6 +18,7 @@ export default function Profile({ userName, instruments, favBands, genres, userI
 				<span>{genre.genre} </span>
 			))}</p>
 			<p>userID: {userId}</p>
+			<Link to={`/message/${userId}`}>Send a message</Link>
 
 		</>
 	)
