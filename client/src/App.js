@@ -22,6 +22,7 @@ import UpdateBio from "./components/userSettings/UpdateBio";
 import UserProflie from "./components/profile/UserProfile";
 import SendMessagePage from "./components/message/SendMessagePage";
 import ViewMessages from "./components/message/ViewMessage";
+import MessageThread from "./components/message/MessageThread";
 
 
 // Check for token to keep user logged in
@@ -66,12 +67,16 @@ const routes = [
   },
   {
     path: "/message/:id",
-    component: Message
+    component: MessagePage
   },
   {
     path: "/viewMessage",
     component: ViewMessages
   },
+  {
+    path: "/viewMessage/:id",
+    component: MessageThread
+  }
 
 ]
 class App extends Component {
@@ -109,6 +114,10 @@ function Id() {
   return <UserProflie />
 }
 
-function Message() {
+function MessagePage() {
   return <SendMessagePage />
+}
+
+function Thread() {
+  return <MessageThread />
 }
