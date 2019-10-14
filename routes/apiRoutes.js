@@ -108,6 +108,21 @@ module.exports = function (app) {
                 err ? res.send(err) : res.json(data);
             })
     })
+    //add a message
+    app.post("/api/message", async function (req, res) {
+        fromUser = decodeUserID(req.body.fromUser)
+        console.log("to user:", req.body.toUser);
+        console.log("from user:", fromUser);
+        console.log("message:", req.body.message);
+
+        dbMessage = await db.Message.create({
+            message: req.body.message,
+            fromUser: fromUser,
+            toUser: req.body.toUser
+        })
+
+        res.json({ message: dbMessage });
+    })
     function decodeUserID(token) {
         const id = jwtDecode(token);
         return id.id;

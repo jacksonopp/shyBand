@@ -1,28 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import request from "superagent";
 
 export default function SendMessagePage() {
     const id = window.location.href.slice(-24);
     const [message, setMessage] = useState("");
     const [send, setSend] = useState({});
+    const [token, setToken] = useState("");
+
+    useEffect(() => {
+        const userToken = localStorage.jwtToken.substr(7);
+        setToken(userToken);
+    }, [])
 
     return (
         <>
             <p>send message to user {id}</p>
             <p>message: {send.message}</p>
             <p>to: {send.to}</p>
+            <p>from: {token}</p>
             <form>
                 <textarea
                     rows={4}
                     value={message}
                     onChange={e => setMessage(e.target.value)}
                 ></textarea>
-                <button onClick={e => {
+                <button onClick={async function (e) {
                     e.preventDefault()
-                    setSend({
+                    await setSend({
                         message,
                         to: id
                     })
-                }}>Subnit</button>
+                    request.post("/api/message")
+                        .send({
+                            message: message,
+                            toUser: id,
+                            fromUser: token
+                        })
+                        .then(res => console.log(res.body))
+                }}>Submit</button>
             </form>
         </>
     )

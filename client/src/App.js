@@ -17,11 +17,10 @@ import Dashboard from "./components/dashboard/Dashboard";
 import CurrentProfile from "./components/profile/CurrentProfile";
 import BrowsePage from "./components/browse/BrowsePage";
 import UpdateBio from "./components/userSettings/UpdateBio";
-// import Id from "./components/profile/Id";
-
-import "./App.css";
 import UserProflie from "./components/profile/UserProfile";
 import SendMessagePage from "./components/message/SendMessagePage";
+
+import "./App.css";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -66,7 +65,12 @@ const routes = [
   {
     path: "/message/:id",
     component: Message
-  }
+  },
+  {
+    path: "/viewMessage",
+    component: Message
+  },
+
 ]
 class App extends Component {
   render() {
