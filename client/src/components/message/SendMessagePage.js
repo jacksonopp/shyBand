@@ -31,7 +31,7 @@ export default function SendMessagePage() {
                         message,
                         to: id
                     })
-                    request.post("/api/message")
+                    request.post("/api/thread")
                         .send({
                             message: message,
                             toUser: id,

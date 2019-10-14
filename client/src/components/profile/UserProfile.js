@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import request from "superagent";
+import { Link } from 'react-router-dom';
 
 import Profile from "./Profile";
 
@@ -23,7 +24,14 @@ export default function UserProfile() {
 	}, [])
 	return (
 		<>
-			<Profile userName={user.name} instruments={instruments} favBands={band} genres={genre} userId={id} />
+			<Profile
+				userName={user.name}
+				instruments={instruments}
+				favBands={band}
+				genres={genre}
+				userId={user._id} />
+			<Link to={`/message/${user._id}`}>Send a message</Link>
 		</>
 	)
 }
+// <Profile userName={user.name} instruments={instruments} favBands={band} genres={genre} userId={id} />

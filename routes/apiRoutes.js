@@ -1,5 +1,6 @@
 const db = require("../models")
 const jwtDecode = require("jwt-decode");
+const mongoose = require("mongoose");
 
 
 module.exports = function (app) {
@@ -13,13 +14,20 @@ module.exports = function (app) {
             // console.log(data);
         })
     })
-    //get current specific user
+    //get current user
     app.get("/api/user/:token", (req, res) => {
         const id = decodeUserID(req.params.token);
         db.User.findById(id)
             .populate("instruments")
             .populate("favoriteBands")
             .populate("genre")
+            .populate({
+                path: "thread",
+                populate: {
+                    path: "messages",
+                    model: 'Message'
+                }
+            })
             .exec((err, data) => {
                 err ? res.json(err) : res.json(data);
             })
@@ -117,6 +125,7 @@ module.exports = function (app) {
         db.Message.find({
             $or: [
                 { toUser: userID },
+                { fromUser: userID }
             ]
         })
             .exec((err, data) => {
@@ -124,12 +133,12 @@ module.exports = function (app) {
             })
     })
     //add a message
-    app.post("/api/message", async function (req, res) {
+    app.post("/api/thread", async function (req, res) {
         fromUser = decodeUserID(req.body.fromUser)
         console.log("to user:", req.body.toUser);
         console.log("from user:", fromUser);
         console.log("message:", req.body.message);
-        console.log("thread number", req.body.thread);
+        console.log("thread number", req.body.thread); //undefined
 
         //create a message
         const dbMessage = await db.Message.create({
@@ -139,11 +148,11 @@ module.exports = function (app) {
         })
         //upsert a new thread with the message
         const dbThread = await db.Thread.create(
+
             {
-                $addToSet: {
-                    messages: dbMessage._id
-                }
-            })
+                messages: [dbMessage._id]
+            }
+        )
         //attach the thread to both users
         const dbUser = await db.User.updateMany({
             $or: [
@@ -161,6 +170,9 @@ module.exports = function (app) {
         )
 
         res.json({ message: dbMessage });
+    })
+    app.get("/api/thread", async function (req, res) {
+        res.json({ message: "working on it" })
     })
     function decodeUserID(token) {
         const id = jwtDecode(token);
