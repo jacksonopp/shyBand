@@ -3,5 +3,6 @@ module.exports = {
     FavoriteBand: require("./FavoriteBand"),
     Instrument: require("./Instrument"),
     Genre: require("./Genre"),
-    Message: require("./Message")
+    Message: require("./Message"),
+    Thread: require("./Thread")
 }

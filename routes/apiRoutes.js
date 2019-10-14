@@ -129,12 +129,36 @@ module.exports = function (app) {
         console.log("to user:", req.body.toUser);
         console.log("from user:", fromUser);
         console.log("message:", req.body.message);
+        console.log("thread number", req.body.thread);
 
-        dbMessage = await db.Message.create({
+        //create a message
+        const dbMessage = await db.Message.create({
             message: req.body.message,
             fromUser: fromUser,
             toUser: req.body.toUser
         })
+        //upsert a new thread with the message
+        const dbThread = await db.Thread.create(
+            {
+                $addToSet: {
+                    messages: dbMessage._id
+                }
+            })
+        //attach the thread to both users
+        const dbUser = await db.User.updateMany({
+            $or: [
+                { _id: fromUser },
+                { _id: req.body.toUser }
+            ]
+        }, {
+            $addToSet: {
+                thread: dbThread._id
+            }
+        }, {
+            new: true,
+            upsert: true
+        }
+        )
 
         res.json({ message: dbMessage });
     })
