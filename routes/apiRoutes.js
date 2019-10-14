@@ -108,6 +108,13 @@ module.exports = function (app) {
                 err ? res.send(err) : res.json(data);
             })
     })
+    //view all messages for user
+    app.get("/api/message/:token", async function (req, res) {
+        const userID = decodeUserID(req.params.token);
+        console.log(userID);
+        console.log("user connected")
+        res.send({ message: "connected" })
+    })
     //add a message
     app.post("/api/message", async function (req, res) {
         fromUser = decodeUserID(req.body.fromUser)

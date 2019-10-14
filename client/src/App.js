@@ -13,14 +13,16 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 
+import "./App.css";
+
 import Dashboard from "./components/dashboard/Dashboard";
 import CurrentProfile from "./components/profile/CurrentProfile";
 import BrowsePage from "./components/browse/BrowsePage";
 import UpdateBio from "./components/userSettings/UpdateBio";
 import UserProflie from "./components/profile/UserProfile";
 import SendMessagePage from "./components/message/SendMessagePage";
+import ViewMessages from "./components/message/ViewMessage";
 
-import "./App.css";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -68,7 +70,7 @@ const routes = [
   },
   {
     path: "/viewMessage",
-    component: Message
+    component: ViewMessages
   },
 
 ]
