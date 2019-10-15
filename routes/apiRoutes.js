@@ -205,8 +205,28 @@ module.exports = function (app) {
                     model: "users"
                 }
             })
+            .populate("fromUser")
+            .populate("toUser")
         res.json(dbThread);
 
+    })
+
+    app.post("/api/thread/:id", async function (req, res) {
+        console.log(req.body);
+        const dbMessage = await db.Message.create({
+            message: req.body.message,
+            toUser: req.body.toUser,
+            fromUser: req.body.fromUser
+        })
+        console.log(dbMessage);
+        const dbThread = await db.Thread.findOneAndUpdate({
+            _id: req.body.threadId
+        }, {
+            $push: {
+                messages: dbMessage._id
+            }
+        })
+        res.json({ message: "working on it" });
     })
 
     function decodeUserID(token) {

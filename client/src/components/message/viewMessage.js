@@ -27,11 +27,12 @@ export default function ViewMessages() {
 	return (
 		<>
 			{messageThreads.map(thread => {
+
 				return (
 					<>
 						<p>{thread._id}</p>
-						<p>with user: {thread.fromUser.name}</p>
-						<p>You: {thread.toUser.name}</p>
+						<p>with user: {thread.toUser.name}</p>
+						<p>You: {thread.fromUser.name}</p>
 						<p>message: {thread.messages[0].message}</p>
 						<Link to={`/viewMessage/${thread._id}`}>view thread</Link>
 					</>
