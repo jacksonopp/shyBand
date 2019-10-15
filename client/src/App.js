@@ -70,7 +70,7 @@ const routes = [
     component: MessagePage
   },
   {
-    path: "/viewMessage",
+    path: "/ViewMessage",
     component: ViewMessages
   },
   {
