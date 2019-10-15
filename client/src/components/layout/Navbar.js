@@ -5,10 +5,11 @@ class Navbar extends Component {
   render() {
     return (
       <span>navbar
-        <Link to="/dashboard"> dashboard</Link>
-        <Link to="/profile"> profile</Link>
-        <Link to="/browse"> browse</Link>
-        <Link to="/updateBio"> bio</Link>
+        <Link to="/dashboard"> | dashboard</Link>
+        <Link to="/profile"> | profile</Link>
+        <Link to="/browse"> | browse</Link>
+        <Link to="/updateBio"> | bio</Link>
+        <Link to="/viewMessage"> | view messages</Link>
       </span>
     );
   }

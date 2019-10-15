@@ -1,5 +1,6 @@
 const db = require("../models")
 const jwtDecode = require("jwt-decode");
+const mongoose = require("mongoose");
 
 
 module.exports = function (app) {
@@ -13,13 +14,34 @@ module.exports = function (app) {
             // console.log(data);
         })
     })
-    //get current specific user
+    //get current user
     app.get("/api/user/:token", (req, res) => {
         const id = decodeUserID(req.params.token);
         db.User.findById(id)
             .populate("instruments")
             .populate("favoriteBands")
             .populate("genre")
+            .populate({
+                path: "thread",
+                populate: {
+                    path: "messages",
+                    model: 'Message',
+                }
+            })
+            .populate({
+                path: "thread",
+                populate: {
+                    path: "fromUser",
+                    model: "users"
+                }
+            })
+            .populate({
+                path: "thread",
+                populate: {
+                    path: "toUser",
+                    model: "users"
+                }
+            })
             .exec((err, data) => {
                 err ? res.json(err) : res.json(data);
             })
@@ -108,6 +130,105 @@ module.exports = function (app) {
                 err ? res.send(err) : res.json(data);
             })
     })
+    //view all messages sent to current user
+    app.get("/api/message/:token", async function (req, res) {
+        const userID = decodeUserID(req.params.token);
+        console.log(userID);
+        console.log("user connected");
+
+        db.Message.find({
+            $or: [
+                { toUser: userID },
+                { fromUser: userID }
+            ]
+        })
+            .exec((err, data) => {
+                err ? res.send(err) : res.json(data);
+            })
+    })
+    //add a message
+    app.post("/api/thread", async function (req, res) {
+        fromUser = decodeUserID(req.body.fromUser)
+        console.log("to user:", req.body.toUser);
+        console.log("from user:", fromUser);
+        console.log("message:", req.body.message);
+        console.log("thread number", req.body.thread); //undefined
+
+        //create a message
+        const dbMessage = await db.Message.create({
+            message: req.body.message,
+            fromUser: fromUser,
+            toUser: req.body.toUser
+        })
+        //upsert a new thread with the message
+        const dbThread = await db.Thread.create(
+
+            {
+                fromUser: fromUser,
+                toUser: req.body.toUser,
+                messages: [dbMessage._id]
+            }
+        )
+        //attach the thread to both users
+        const dbUser = await db.User.updateMany({
+            $or: [
+                { _id: fromUser },
+                { _id: req.body.toUser }
+            ]
+        }, {
+            $addToSet: {
+                thread: dbThread._id
+            }
+        }, {
+            new: true,
+            upsert: true
+        }
+        )
+
+        res.json({ message: dbMessage });
+    })
+
+    app.get("/api/thread/:id", async function (req, res) {
+        const dbThread = await db.Thread.findById(req.params.id)
+            .populate("messages")
+            .populate({
+                path: "messages",
+                populate: {
+                    path: "toUser",
+                    model: "users"
+                }
+            })
+            .populate({
+                path: "messages",
+                populate: {
+                    path: "fromUser",
+                    model: "users"
+                }
+            })
+            .populate("fromUser")
+            .populate("toUser")
+        res.json(dbThread);
+
+    })
+
+    app.post("/api/thread/:id", async function (req, res) {
+        console.log(req.body);
+        const dbMessage = await db.Message.create({
+            message: req.body.message,
+            toUser: req.body.toUser,
+            fromUser: req.body.fromUser
+        })
+        console.log(dbMessage);
+        const dbThread = await db.Thread.findOneAndUpdate({
+            _id: req.body.threadId
+        }, {
+            $push: {
+                messages: dbMessage._id
+            }
+        })
+        res.json({ message: "working on it" });
+    })
+
     function decodeUserID(token) {
         const id = jwtDecode(token);
         return id.id;

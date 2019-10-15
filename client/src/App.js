@@ -13,14 +13,17 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 
+import "./App.css";
+
 import Dashboard from "./components/dashboard/Dashboard";
 import CurrentProfile from "./components/profile/CurrentProfile";
 import BrowsePage from "./components/browse/BrowsePage";
 import UpdateBio from "./components/userSettings/UpdateBio";
-// import Id from "./components/profile/Id";
-
-import "./App.css";
 import UserProflie from "./components/profile/UserProfile";
+import SendMessagePage from "./components/message/SendMessagePage";
+import ViewMessages from "./components/message/ViewMessage";
+import MessageThread from "./components/message/MessageThread";
+
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -61,7 +64,20 @@ const routes = [
   {
     path: "/profile/:id",
     component: Id
+  },
+  {
+    path: "/message/:id",
+    component: MessagePage
+  },
+  {
+    path: "/viewMessage",
+    component: ViewMessages
+  },
+  {
+    path: "/viewMessage/:id",
+    component: MessageThread
   }
+
 ]
 class App extends Component {
   render() {
@@ -96,4 +112,12 @@ export default App;
 function Id() {
   // const { id } = useParams();
   return <UserProflie />
+}
+
+function MessagePage() {
+  return <SendMessagePage />
+}
+
+function Thread() {
+  return <MessageThread />
 }

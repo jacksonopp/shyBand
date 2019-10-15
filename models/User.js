@@ -41,7 +41,11 @@ const UserSchema = new Schema({
   }],
   location: {
     type: String
-  }
+  },
+  thread: [{
+    type: Schema.Types.ObjectId,
+    ref: "Thread"
+  }]
 });
 
 module.exports = User = mongoose.model("users", UserSchema);
