@@ -4,6 +4,7 @@ import request from "superagent";
 import Profile from "./Profile"
 
 export default function Proflie() {
+  // const { currentUser } = auth
 
   const [user, setUser] = useState({});
   const [instruments, setInstruments] = useState([]);
@@ -29,3 +30,4 @@ export default function Proflie() {
     </>
   )
 }
+

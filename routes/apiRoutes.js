@@ -25,7 +25,21 @@ module.exports = function (app) {
                 path: "thread",
                 populate: {
                     path: "messages",
-                    model: 'Message'
+                    model: 'Message',
+                }
+            })
+            .populate({
+                path: "thread",
+                populate: {
+                    path: "fromUser",
+                    model: "users"
+                }
+            })
+            .populate({
+                path: "thread",
+                populate: {
+                    path: "toUser",
+                    model: "users"
                 }
             })
             .exec((err, data) => {
@@ -150,6 +164,8 @@ module.exports = function (app) {
         const dbThread = await db.Thread.create(
 
             {
+                fromUser: fromUser,
+                toUser: req.body.toUser,
                 messages: [dbMessage._id]
             }
         )
@@ -171,9 +187,28 @@ module.exports = function (app) {
 
         res.json({ message: dbMessage });
     })
-    app.get("/api/thread", async function (req, res) {
-        res.json({ message: "working on it" })
+
+    app.get("/api/thread/:id", async function (req, res) {
+        const dbThread = await db.Thread.findById(req.params.id)
+            .populate("messages")
+            .populate({
+                path: "messages",
+                populate: {
+                    path: "toUser",
+                    model: "users"
+                }
+            })
+            .populate({
+                path: "messages",
+                populate: {
+                    path: "fromUser",
+                    model: "users"
+                }
+            })
+        res.json(dbThread);
+
     })
+
     function decodeUserID(token) {
         const id = jwtDecode(token);
         return id.id;
