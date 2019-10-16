@@ -25,6 +25,8 @@ import ViewMessages from "./components/message/ViewMessage";
 import MessageThread from "./components/message/MessageThread";
 import CreateBand from "./components/band/CreateBand"
 import BandProfile from "./components/band/BandProfile";
+import UserSettings from "./components/userSettings/UserSettings";
+import ManageBand from "./components/userSettings/ManageBand";
 
 
 // Check for token to keep user logged in
@@ -86,6 +88,14 @@ const routes = [
   {
     path: "/band/:id",
     component: BandProfile
+  },
+  {
+    path: "/settings",
+    component: UserSettings
+  },
+  {
+    path: "/manage/:id",
+    component: ManageBand
   }
 
 ]
