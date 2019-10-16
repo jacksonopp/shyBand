@@ -45,7 +45,13 @@ const UserSchema = new Schema({
   thread: [{
     type: Schema.Types.ObjectId,
     ref: "Thread"
-  }]
+  }],
+  bands: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Band"
+    }
+  ]
 });
 
 module.exports = User = mongoose.model("users", UserSchema);

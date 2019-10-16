@@ -237,6 +237,13 @@ module.exports = function (app) {
             bandOwner: userID
         })
         res.json({ dbBand });
+        const dbUser = await db.User.findOneAndUpdate({
+            _id: userID
+        }, {
+            $addToSet: {
+                bands: dbBand._id
+            }
+        })
     })
 
     function decodeUserID(token) {
