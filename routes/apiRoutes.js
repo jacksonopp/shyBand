@@ -189,7 +189,7 @@ module.exports = function (app) {
 
         res.json({ message: dbMessage });
     })
-
+    // get all messages from a thread
     app.get("/api/thread/:id", async function (req, res) {
         const dbThread = await db.Thread.findById(req.params.id)
             .populate("messages")
@@ -212,7 +212,7 @@ module.exports = function (app) {
         res.json(dbThread);
 
     })
-
+    //add a message to a thread
     app.post("/api/thread/:id", async function (req, res) {
         console.log(req.body);
         const dbMessage = await db.Message.create({
@@ -230,7 +230,7 @@ module.exports = function (app) {
         })
         res.json({ message: "working on it" });
     })
-
+    //create a new band
     app.post("/api/band", async function (req, res) {
         const userID = decodeUserID(req.body.token);
         console.log(userID);
@@ -240,7 +240,7 @@ module.exports = function (app) {
             bandMembers: [
                 {
                     member: userID,
-                    role: "guitar"
+                    role: req.body.role
                 },
             ]
         })
@@ -253,10 +253,29 @@ module.exports = function (app) {
             }
         })
     })
+    //get band info
     app.get("/api/band/:id", async function (req, res) {
         const bandID = req.params.id;
         const dbBand = await db.Band.findById(bandID)
-        console.log(dbBand);
+            .populate("bandOwner")
+        res.json(dbBand);
+    })
+    //request to join a band
+    app.post("/api/band/join/:id", async function (req, res) {
+        const userID = decodeUserID(req.body.token)
+        const bandID = req.params.id;
+        console.log(req.body);
+        console.log(userID);
+        const dbBand = await db.Band.findOneAndUpdate({
+            _id: bandID
+        }, {
+            $addToSet: {
+                joinMembers: {
+                    user: userID,
+                    role: req.body.joinInst
+                }
+            }
+        })
         res.json(dbBand);
     })
 

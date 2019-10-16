@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 
 export default function Profile({ userName, instruments, favBands, genres, userBands }) {
-	console.log("from profile", userBands);
 	return (
 		<>
 			<p>user: {userName}</p>

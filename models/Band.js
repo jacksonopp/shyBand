@@ -10,7 +10,17 @@ const MemberSchema = new Schema({
         type: String,
         default: "default"
     }
+})
 
+const JoinSchema = new Schema({
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "users"
+    },
+    role: {
+        type: String,
+        default: "default"
+    }
 })
 
 const BandSchema = new Schema({
@@ -19,6 +29,7 @@ const BandSchema = new Schema({
         required: true,
     },
     bandMembers: [MemberSchema],
+    joinMembers: [JoinSchema],
     bandOwner: {
         type: Schema.Types.ObjectId,
         ref: "users"
