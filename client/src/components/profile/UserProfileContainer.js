@@ -11,7 +11,7 @@ export default function UserProfile() {
 	const [band, setBand] = useState([]);
 	const [genre, setGenre] = useState([]);
 	const [userBands, setUserBands] = useState([]);
-	console.log("from userProfile:", userBands);
+	// console.log("from userProfile:", userBands);
 
 
 	useEffect(() => {

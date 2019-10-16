@@ -24,6 +24,7 @@ import SendMessagePage from "./components/message/SendMessagePage";
 import ViewMessages from "./components/message/ViewMessage";
 import MessageThread from "./components/message/MessageThread";
 import CreateBand from "./components/band/CreateBand"
+import BandProfile from "./components/band/BandProfile";
 
 
 // Check for token to keep user logged in
@@ -82,6 +83,10 @@ const routes = [
     path: "/createBand",
     component: CreateBand
   },
+  {
+    path: "/band/:id",
+    component: BandProfile
+  }
 
 ]
 class App extends Component {

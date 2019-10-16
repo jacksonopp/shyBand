@@ -127,6 +127,7 @@ module.exports = function (app) {
             .populate("instruments")
             .populate("favoriteBands")
             .populate("genre")
+            .populate("bands")
             .exec((err, data) => {
                 err ? res.send(err) : res.json(data);
             })
@@ -235,7 +236,13 @@ module.exports = function (app) {
         console.log(userID);
         const dbBand = await db.Band.create({
             bandName: req.body.bandName,
-            bandOwner: userID
+            bandOwner: userID,
+            bandMembers: [
+                {
+                    member: userID,
+                    role: "guitar"
+                },
+            ]
         })
         res.json({ dbBand });
         const dbUser = await db.User.findOneAndUpdate({
@@ -245,6 +252,12 @@ module.exports = function (app) {
                 bands: dbBand._id
             }
         })
+    })
+    app.get("/api/band/:id", async function (req, res) {
+        const bandID = req.params.id;
+        const dbBand = await db.Band.findById(bandID)
+        console.log(dbBand);
+        res.json(dbBand);
     })
 
     function decodeUserID(token) {
