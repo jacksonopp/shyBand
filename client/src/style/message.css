@@ -1,0 +1,9 @@
+.message-input {
+   position: fixed;
+   bottom: 0;
+   background: white;
+   width: 100vw;
+}
+.messages {
+   margin-bottom: 20px;
+}

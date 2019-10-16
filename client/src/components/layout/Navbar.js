@@ -10,6 +10,7 @@ class Navbar extends Component {
         <Link to="/browse"> | browse</Link>
         <Link to="/updateBio"> | bio</Link>
         <Link to="/viewMessage"> | view messages</Link>
+        <Link to="/createBand"> | create a band</Link>
       </span>
     );
   }

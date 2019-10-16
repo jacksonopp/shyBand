@@ -5,6 +5,8 @@ import jwtDecode from "jwt-decode"
 
 import MessageInput from './MessageInput';
 
+import "../../style/message.css"
+
 export default function MessageThread() {
     const user = jwtDecode(localStorage.jwtToken.substr(7));
     // console.log(user)
@@ -45,16 +47,25 @@ export default function MessageThread() {
     return (
         <>
             <h1>Messages to {toUserName}</h1>
-            {messages.map(message => {
+            <div className="messages">
+                {messages.map(message => {
 
-                return (<div key={message._id}>
-                    <p>message: {message.message}</p>
-                    <p>sent by: {message.fromUser.name}</p>
-                    <hr />
-                </div>)
-            })
-            }
-            < MessageInput threadId={threadId} currentUserId={user.id} currentUserName={user.name} toUserId={toUser} />
+                    return (<div key={message._id}>
+                        <p>message: {message.message}</p>
+                        <p>sent by: {message.fromUser.name}</p>
+                        <hr />
+                    </div>)
+                })
+                }
+            </div>
+            <div className="message-input">
+                < MessageInput
+                    threadId={threadId}
+                    currentUserId={user.id}
+                    currentUserName={user.name}
+                    toUserId={toUser}
+                />
+            </div>
         </>
     )
 }

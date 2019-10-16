@@ -229,6 +229,16 @@ module.exports = function (app) {
         res.json({ message: "working on it" });
     })
 
+    app.post("/api/band", async function (req, res) {
+        const userID = decodeUserID(req.body.token);
+        console.log(userID);
+        const dbBand = await db.Band.create({
+            bandName: req.body.bandName,
+            bandOwner: userID
+        })
+        res.json({ dbBand });
+    })
+
     function decodeUserID(token) {
         const id = jwtDecode(token);
         return id.id;
