@@ -117,7 +117,3 @@ function Id() {
 function MessagePage() {
   return <SendMessagePage />
 }
-
-function Thread() {
-  return <MessageThread />
-}

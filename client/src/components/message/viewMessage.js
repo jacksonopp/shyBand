@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 export default function ViewMessages() {
 	const [messageThreads, setMessageThreads] = useState([]);
+	const [currentUser, setCurrentUser] = useState({});
 	useEffect(() => {
 		const token = localStorage.jwtToken.substr(7);
 		//get current user
@@ -17,6 +18,7 @@ export default function ViewMessages() {
 			// pull out all user's threads
 			let threads = [];
 			console.log("user", user);
+			setCurrentUser(user);
 			threads = user.thread;
 			console.log("threads:", threads);
 			// get all the threads info from Threads model
@@ -27,14 +29,17 @@ export default function ViewMessages() {
 	return (
 		<>
 			{messageThreads.map(thread => {
+				let toUserName = "";
+				if (thread.toUser._id === currentUser._id) {
+					toUserName = thread.fromUser.name
+				}
 
 				return (
 					<>
-						<p>{thread._id}</p>
-						<p>with user: {thread.toUser.name}</p>
-						<p>You: {thread.fromUser.name}</p>
-						<p>message: {thread.messages[0].message}</p>
+						<h5>{toUserName || thread.toUser.name}</h5>
+						<p>{thread.messages[thread.messages.length - 1].message}</p>
 						<Link to={`/viewMessage/${thread._id}`}>view thread</Link>
+						<hr />
 					</>
 				)
 			})}
