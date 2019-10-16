@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Link } from "react-router-dom";
 
 export default function Profile({ userName, instruments, favBands, genres, userId }) {
 	return (
