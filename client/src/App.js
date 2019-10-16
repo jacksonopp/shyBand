@@ -16,10 +16,10 @@ import PrivateRoute from "./components/private-route/PrivateRoute";
 import "./App.css";
 
 import Dashboard from "./components/dashboard/Dashboard";
-import CurrentProfile from "./components/profile/CurrentProfile";
+import CurrentProfileContainer from "./components/profile/CurrentProfileContainer";
 import BrowsePage from "./components/browse/BrowsePage";
 import UpdateBio from "./components/userSettings/UpdateBio";
-import UserProflie from "./components/profile/UserProfile";
+import UserProflieContainer from "./components/profile/UserProfileContainer";
 import SendMessagePage from "./components/message/SendMessagePage";
 import ViewMessages from "./components/message/ViewMessage";
 import MessageThread from "./components/message/MessageThread";
@@ -52,7 +52,7 @@ const routes = [
   },
   {
     path: "/profile",
-    component: CurrentProfile
+    component: CurrentProfileContainer
   },
   {
     path: "/browse",
@@ -116,7 +116,7 @@ export default App;
 
 function Id() {
   // const { id } = useParams();
-  return <UserProflie />
+  return <UserProflieContainer />
 }
 
 function MessagePage() {

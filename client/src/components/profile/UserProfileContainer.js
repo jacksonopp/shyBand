@@ -10,6 +10,8 @@ export default function UserProfile() {
 	const [instruments, setInstruments] = useState([]);
 	const [band, setBand] = useState([]);
 	const [genre, setGenre] = useState([]);
+	const [userBands, setUserBands] = useState([]);
+	console.log("from userProfile:", userBands);
 
 
 	useEffect(() => {
@@ -18,8 +20,9 @@ export default function UserProfile() {
 				console.log(res.body);
 				setUser(res.body);
 				setInstruments(res.body.instruments);
-				setBand(res.body.favoriteBands ? res.body.favoriteBands : ["none set yet"]);
+				setBand(res.body.favoriteBands);
 				setGenre(res.body.genre);
+				setUserBands(res.body.bands)
 			});
 	}, [])
 	return (
@@ -29,7 +32,7 @@ export default function UserProfile() {
 				instruments={instruments}
 				favBands={band}
 				genres={genre}
-				userId={user._id} />
+				userBands={userBands} />
 			<Link to={`/message/${user._id}`}>Send a message</Link>
 		</>
 	)

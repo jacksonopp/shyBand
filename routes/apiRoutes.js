@@ -42,6 +42,7 @@ module.exports = function (app) {
                     model: "users"
                 }
             })
+            .populate("bands")
             .exec((err, data) => {
                 err ? res.json(err) : res.json(data);
             })

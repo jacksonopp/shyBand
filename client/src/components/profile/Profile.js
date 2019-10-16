@@ -1,7 +1,10 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
 
-export default function Profile({ userName, instruments, favBands, genres, userId }) {
+
+export default function Profile({ userName, instruments, favBands, genres, userBands }) {
+	// console.log(userBands);
 	return (
 		<>
 			<p>user: {userName}</p>
@@ -16,7 +19,9 @@ export default function Profile({ userName, instruments, favBands, genres, userI
 			<p>genres: {genres.map(genre => (
 				<span>{genre.genre} </span>
 			))}</p>
-			<p>userID: {userId}</p>
+			<p>user bands: {userBands.map(band => (
+				<Link to={band._id}>{band.bandName}</Link>
+			))}</p>
 		</>
 	)
 }
