@@ -233,7 +233,7 @@ module.exports = function (app) {
     //create a new band
     app.post("/api/band", async function (req, res) {
         const userID = decodeUserID(req.body.token);
-        console.log(userID);
+        console.log("userID: ", userID);
         const dbBand = await db.Band.create({
             bandName: req.body.bandName,
             bandOwner: userID,
@@ -311,6 +311,22 @@ module.exports = function (app) {
             }
         })
         res.json(dbBand);
+    })
+    //delete a member
+    app.delete("/api/band/delete", function (req, res) {
+        console.log(req.body);
+        db.Band.findOneAndUpdate({
+            _id: req.body.bandID
+        }, {
+            $pull: {
+                bandMembers: {
+                    member: req.body.userID
+                }
+            }
+        })
+            .exec((err, data) => {
+                err ? res.send(err) : res.json(data)
+            })
     })
 
     function decodeUserID(token) {

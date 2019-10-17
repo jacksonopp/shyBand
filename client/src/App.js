@@ -112,6 +112,7 @@ class App extends Component {
             <Switch>
               {routes.map(({ path, component }) => (
                 <PrivateRoute
+                  key={path}
                   exact path={path}
                   component={component}
                 />
