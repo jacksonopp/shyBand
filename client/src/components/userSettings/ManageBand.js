@@ -72,7 +72,17 @@ export default function ManageBand() {
             Accept
                         </button>
           <button
-            onClick={() => console.log("deny:", user.userID)}>
+            onClick={() => {
+              console.log("deny:", user.userID)
+              request.put("/api/band/reject")
+                .send({
+                  bandID,
+                  user: user.name,
+                  userID: user.userID,
+                  role: user.role
+                })
+                .then(res => console.log(res.body))
+            }}>
             Deny</button>
         </p>
       ))}</div>

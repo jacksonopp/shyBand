@@ -289,10 +289,28 @@ module.exports = function (app) {
                     member: req.body.userID,
                     role: req.body.role
                 }
+            },
+            $pull: {
+                joinMembers: {
+                    user: req.body.userID
+                }
             }
         })
         res.send(dbBand);
 
+    })
+    // reject a new band member
+    app.put("/api/band/reject", async function (req, res) {
+        const dbBand = await db.Band.findOneAndUpdate({
+            _id: req.body.bandID
+        }, {
+            $pull: {
+                joinMembers: {
+                    user: req.body.userID
+                }
+            }
+        })
+        res.json(dbBand);
     })
 
     function decodeUserID(token) {
