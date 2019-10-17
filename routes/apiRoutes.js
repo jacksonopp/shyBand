@@ -278,6 +278,22 @@ module.exports = function (app) {
         })
         res.json(dbBand);
     })
+    // accept a new band member
+    app.put("/api/band/accept", async function (req, res) {
+        console.log(req.body);
+        const dbBand = await db.Band.findOneAndUpdate({
+            _id: req.body.bandID
+        }, {
+            $push: {
+                bandMembers: {
+                    member: req.body.userID,
+                    role: req.body.role
+                }
+            }
+        })
+        res.send(dbBand);
+
+    })
 
     function decodeUserID(token) {
         const id = jwtDecode(token);

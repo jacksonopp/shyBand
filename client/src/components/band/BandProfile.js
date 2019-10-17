@@ -26,7 +26,7 @@ export default function BandProfile() {
               }
               console.log("newMember:", newMember);
               console.log("members name:", res.body.name);
-              setMembers([...members, newMember]);
+              setMembers(members => [...members, newMember]);
             })
         })
       })
