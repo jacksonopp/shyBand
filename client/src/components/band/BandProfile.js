@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 
 import request from "superagent";
 
-export default function BandProfile() {
+export default function BandProfile({ match }) {
   const [bandId, setBandId] = useState("");
   const [bandName, setBandName] = useState("");
   const [members, setMembers] = useState([]);
   const [joinInst, setJoinInst] = useState("");
-  const id = window.location.href.substr(-24);
+  const id = match.params.id;
 
 
   useEffect(() => {

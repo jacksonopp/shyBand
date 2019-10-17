@@ -67,11 +67,11 @@ const routes = [
   },
   {
     path: "/profile/:id",
-    component: Id
+    component: UserProflieContainer
   },
   {
     path: "/message/:id",
-    component: MessagePage
+    component: SendMessagePage
   },
   {
     path: "/ViewMessage",

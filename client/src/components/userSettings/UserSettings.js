@@ -20,7 +20,7 @@ export default function UserSettings() {
             <Link to="/updateBio">Update Bio</Link>
             <h3>Manage Bands</h3>
             {bands.map(band => (
-                <Link to={`/manage/${band._id}`}>{band.bandName}</Link >
+                <p><Link to={`/manage/${band._id}`}>{band.bandName}</Link ></p>
             ))}
         </>
     )

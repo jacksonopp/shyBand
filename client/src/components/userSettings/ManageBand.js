@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 import request from 'superagent';
-const bandID = window.location.href.substr(-24);
+// const bandID = window.location.href.substr(-24);
 
-function apiGetBand(setBandCB, setBandOwnerCB, setMembersCB, setRequestsCB) {
+function apiGetBand(bandID, setBandCB, setBandOwnerCB, setMembersCB, setRequestsCB) {
   request.get(`/api/band/${bandID}`)
     .then(res => {
       // console.log("this is the current band:", res.body);
@@ -53,23 +53,22 @@ function apiGetRequests(input, setRequestsCB) {
 
 
 
-export default function ManageBand() {
+export default function ManageBand({ match }) {
   const [band, setBand] = useState({});
   const [bandOwner, setBandOwner] = useState({});
   const [members, setMembers] = useState([]);
   const [requestUsers, setRequestUsers] = useState([]);
-
+  const bandID = match.params.id;
   useEffect(() => {
-    apiGetBand(setBand, setBandOwner, setMembers, setRequestUsers);
+    apiGetBand(bandID, setBand, setBandOwner, setMembers, setRequestUsers);
   }, [])
-  console.log("requests:", requestUsers);
   return (
     <>
       <h1>Manage Band</h1>
       <p>Name: {band.bandName}</p>
       <p>Owner: {bandOwner.name}</p>
       <div>members: {members.map(member => (
-        <p key={member.name} memberID={member.userID}>
+        <p key={member.name}>
           {/* {member.name} */}
           {member.name}:{member.role}
           <button onClick={() => {

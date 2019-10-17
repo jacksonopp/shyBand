@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import request from "superagent";
 
-export default function SendMessagePage() {
-    const id = window.location.href.slice(-24);
+export default function SendMessagePage({ match }) {
+    const id = match.params.id;
     const [message, setMessage] = useState("");
     const [send, setSend] = useState({});
     const [token, setToken] = useState("");

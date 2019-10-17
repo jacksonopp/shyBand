@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 import Profile from "./Profile";
 
-export default function UserProfile() {
-	const id = window.location.href.slice(-24)
+export default function UserProfile({ match }) {
+	const id = match.params.id
 	const [user, setUser] = useState({});
 	const [instruments, setInstruments] = useState([]);
 	const [band, setBand] = useState([]);

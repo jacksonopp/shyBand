@@ -7,10 +7,10 @@ import MessageInput from './MessageInput';
 
 import "../../style/message.css"
 
-export default function MessageThread() {
+export default function MessageThread({ match }) {
     const user = jwtDecode(localStorage.jwtToken.substr(7));
     // console.log(user)
-    const threadId = window.location.href.substr(-24);
+    const threadId = match.params.id;
     const [messages, setMessages] = useState([]);
     const [toUser, setToUser] = useState("");
     const [toUserName, setToUserName] = useState("error");
