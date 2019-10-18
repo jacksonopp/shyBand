@@ -7,12 +7,25 @@ module.exports = function (app) {
     //get all users
     app.get("/api/users/all/:token", (req, res) => {
         userID = decodeUserID(req.params.token);
-        db.User.find({ _id: { $ne: userID } }).exec((err, data) => {
-            // err ? res.json(err) : res.json(data);
-            if (err) throw err;
-            res.json(data);
-            // console.log(data);
-        })
+        db.User.find({ _id: { $ne: userID } })
+            .populate("instruments")
+            .populate("genre")
+            .exec((err, data) => {
+                // err ? res.json(err) : res.json(data);
+                if (err) throw err;
+                res.json(data);
+                // console.log(data);
+            })
+    })
+    //get all genres
+    app.get("/api/genres", async function (req, res) {
+        const genreDB = await db.Genre.find({})
+        res.json(genreDB);
+    })
+    //get all instruments
+    app.get("/api/instruments", async function (req, res) {
+        const instDB = await db.Instrument.find({});
+        res.json(instDB);
     })
     //get current user
     app.get("/api/user/:token", (req, res) => {
