@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import request from "superagent";
+
+import { Box, Select } from 'grommet';
+
 import UserLI from './UserLI';
 
 function displayUsers(user) {
@@ -22,7 +25,7 @@ function displayUsers(user) {
 
 export default function BrowsePage() {
   const [users, setUsers] = useState([]);
-  const [select, setSelect] = useState("all");
+  const [select, setSelect] = useState("All");
   const [genreList, setGenreList] = useState([]);
   const [genreSelect, setGenreSelect] = useState("");
   const [instList, setInstList] = useState([]);
@@ -49,38 +52,46 @@ export default function BrowsePage() {
   }, [])
 
   return (
-    <>
+    <Box
+      pad={{
+        left: "medium",
+        right: "medium"
+
+      }}
+    >
       <h1>Browse</h1>
-      <form>
-        <label>{select}</label>
-        <select value={select} onChange={e => setSelect(e.target.value)}>
-          <option selected value="all">All</option>
-          <option value="instrument">Instrument</option>
-          <option value="genre">Genre</option>
-        </select>
-      </form>
-      {select === "genre" && (
-        <select value={genreSelect} onChange={e => setGenreSelect(e.target.value)}>
-          {genreList.map(genre => (
-            <option value={genre} key={genre}>{genre}</option>
-          ))}
-        </select>
-      )}
-      {select === "instrument" && (
-        <select value={instSelect} onChange={e => setInstSelect(e.target.value)}>
-          {instList.map(inst => (
-            <option value={inst} key={inst}>{inst}</option>
-          ))}
-        </select>
-      )}
+
+      <Box
+        direction="row"
+      >
+        <Select
+          options={["All", "Instrument", "Genre"]}
+          value={select}
+          onChange={({ option }) => setSelect(option)}
+        />
+        {select === "Genre" && (
+          <Select
+            options={genreList}
+            value={genreSelect}
+            onChange={({ option }) => setGenreSelect(option)}
+          />
+        )}
+        {select === "Instrument" && (
+          <Select
+            options={instList}
+            value={instSelect}
+            onChange={({ option }) => setInstSelect(option)}
+          />
+        )}
+      </Box>
       {users.map(user => {
         if (select === "all") {
           return <UserLI user={user} />
-        } else if (select === "genre") {
+        } else if (select === "Genre") {
           if (user.genre.some(genre => genre.genre === genreSelect)) {
             return <UserLI user={user} />
           }
-        } else if (select === "instrument") {
+        } else if (select === "Instrument") {
           if (user.instruments.some(instrument => instrument.instrument === instSelect)) {
             return <UserLI user={user} />
           }
@@ -89,6 +100,6 @@ export default function BrowsePage() {
         }
 
       })}
-    </>
+    </Box>
   )
 }

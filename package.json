@@ -26,6 +26,7 @@
       "dotenv": "^8.1.0",
       "express": "^4.16.4",
       "grommet": "^2.7.9",
+      "grommet-controls": "^2.0.0-alpha1",
       "is-empty": "^1.2.0",
       "jsonwebtoken": "^8.3.0",
       "jwt-decode": "^2.2.0",
