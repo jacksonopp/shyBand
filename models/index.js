@@ -4,5 +4,6 @@ module.exports = {
     Instrument: require("./Instrument"),
     Genre: require("./Genre"),
     Message: require("./Message"),
-    Thread: require("./Thread")
+    Thread: require("./Thread"),
+    Band: require("./Band")
 }

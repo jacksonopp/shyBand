@@ -10,14 +10,15 @@ export default function Proflie() {
   const [instruments, setInstruments] = useState([]);
   const [band, setBand] = useState([]);
   const [genre, setGenre] = useState([]);
+  const [userBands, setUserBands] = useState([]);
 
   useEffect(() => {
     const token = localStorage.jwtToken.substr(7);
-    console.log(token);
     request.get(`/api/user/${token}`)
       .then(res => {
         console.log(res.body);
         setUser(res.body);
+        setUserBands(res.body.bands)
         setInstruments(res.body.instruments);
         setBand(res.body.favoriteBands ? res.body.favoriteBands : ["none set yet"]);
         setGenre(res.body.genre);
@@ -26,7 +27,7 @@ export default function Proflie() {
   }, [])
   return (
     <>
-      <Profile userName={user.name} instruments={instruments} favBands={band} genres={genre} />
+      <Profile userName={user.name} instruments={instruments} favBands={band} genres={genre} userBands={userBands} />
     </>
   )
 }

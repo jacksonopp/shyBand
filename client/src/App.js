@@ -16,13 +16,17 @@ import PrivateRoute from "./components/private-route/PrivateRoute";
 import "./App.css";
 
 import Dashboard from "./components/dashboard/Dashboard";
-import CurrentProfile from "./components/profile/CurrentProfile";
+import CurrentProfileContainer from "./components/profile/CurrentProfileContainer";
 import BrowsePage from "./components/browse/BrowsePage";
 import UpdateBio from "./components/userSettings/UpdateBio";
-import UserProflie from "./components/profile/UserProfile";
+import UserProflieContainer from "./components/profile/UserProfileContainer";
 import SendMessagePage from "./components/message/SendMessagePage";
 import ViewMessages from "./components/message/ViewMessage";
 import MessageThread from "./components/message/MessageThread";
+import CreateBand from "./components/band/CreateBand"
+import BandProfile from "./components/band/BandProfile";
+import UserSettings from "./components/userSettings/UserSettings";
+import ManageBand from "./components/userSettings/ManageBand";
 
 
 // Check for token to keep user logged in
@@ -51,7 +55,7 @@ const routes = [
   },
   {
     path: "/profile",
-    component: CurrentProfile
+    component: CurrentProfileContainer
   },
   {
     path: "/browse",
@@ -63,11 +67,11 @@ const routes = [
   },
   {
     path: "/profile/:id",
-    component: Id
+    component: UserProflieContainer
   },
   {
     path: "/message/:id",
-    component: MessagePage
+    component: SendMessagePage
   },
   {
     path: "/ViewMessage",
@@ -76,6 +80,22 @@ const routes = [
   {
     path: "/viewMessage/:id",
     component: MessageThread
+  },
+  {
+    path: "/createBand",
+    component: CreateBand
+  },
+  {
+    path: "/band/:id",
+    component: BandProfile
+  },
+  {
+    path: "/settings",
+    component: UserSettings
+  },
+  {
+    path: "/manage/:id",
+    component: ManageBand
   }
 
 ]
@@ -92,6 +112,7 @@ class App extends Component {
             <Switch>
               {routes.map(({ path, component }) => (
                 <PrivateRoute
+                  key={path}
                   exact path={path}
                   component={component}
                 />
@@ -111,7 +132,7 @@ export default App;
 
 function Id() {
   // const { id } = useParams();
-  return <UserProflie />
+  return <UserProflieContainer />
 }
 
 function MessagePage() {

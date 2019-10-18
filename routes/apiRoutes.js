@@ -42,6 +42,7 @@ module.exports = function (app) {
                     model: "users"
                 }
             })
+            .populate("bands")
             .exec((err, data) => {
                 err ? res.json(err) : res.json(data);
             })
@@ -126,6 +127,7 @@ module.exports = function (app) {
             .populate("instruments")
             .populate("favoriteBands")
             .populate("genre")
+            .populate("bands")
             .exec((err, data) => {
                 err ? res.send(err) : res.json(data);
             })
@@ -187,7 +189,7 @@ module.exports = function (app) {
 
         res.json({ message: dbMessage });
     })
-
+    // get all messages from a thread
     app.get("/api/thread/:id", async function (req, res) {
         const dbThread = await db.Thread.findById(req.params.id)
             .populate("messages")
@@ -210,7 +212,7 @@ module.exports = function (app) {
         res.json(dbThread);
 
     })
-
+    //add a message to a thread
     app.post("/api/thread/:id", async function (req, res) {
         console.log(req.body);
         const dbMessage = await db.Message.create({
@@ -227,6 +229,104 @@ module.exports = function (app) {
             }
         })
         res.json({ message: "working on it" });
+    })
+    //create a new band
+    app.post("/api/band", async function (req, res) {
+        const userID = decodeUserID(req.body.token);
+        console.log("userID: ", userID);
+        const dbBand = await db.Band.create({
+            bandName: req.body.bandName,
+            bandOwner: userID,
+            bandMembers: [
+                {
+                    member: userID,
+                    role: req.body.role
+                },
+            ]
+        })
+        res.json({ dbBand });
+        const dbUser = await db.User.findOneAndUpdate({
+            _id: userID
+        }, {
+            $addToSet: {
+                bands: dbBand._id
+            }
+        })
+    })
+    //get band info
+    app.get("/api/band/:id", async function (req, res) {
+        const bandID = req.params.id;
+        const dbBand = await db.Band.findById(bandID)
+            .populate("bandOwner")
+        res.json(dbBand);
+    })
+    //request to join a band
+    app.post("/api/band/join/:id", async function (req, res) {
+        const userID = decodeUserID(req.body.token)
+        const bandID = req.params.id;
+        console.log(req.body);
+        console.log(userID);
+        const dbBand = await db.Band.findOneAndUpdate({
+            _id: bandID
+        }, {
+            $addToSet: {
+                joinMembers: {
+                    user: userID,
+                    role: req.body.joinInst
+                }
+            }
+        })
+        res.json(dbBand);
+    })
+    // accept a new band member
+    app.put("/api/band/accept", async function (req, res) {
+        console.log(req.body);
+        const dbBand = await db.Band.findOneAndUpdate({
+            _id: req.body.bandID
+        }, {
+            $push: {
+                bandMembers: {
+                    member: req.body.userID,
+                    role: req.body.role
+                }
+            },
+            $pull: {
+                joinMembers: {
+                    user: req.body.userID
+                }
+            }
+        })
+        res.send(dbBand);
+
+    })
+    // reject a new band member
+    app.put("/api/band/reject", async function (req, res) {
+        const dbBand = await db.Band.findOneAndUpdate({
+            _id: req.body.bandID
+        }, {
+            $pull: {
+                joinMembers: {
+                    user: req.body.userID
+                }
+            }
+        })
+        res.json(dbBand);
+    })
+    //delete a member
+    app.delete("/api/band/delete", function (req, res) {
+        console.log(req.body);
+        db.Band.findOneAndUpdate({
+            _id: req.body.bandID
+        }, {
+            $pull: {
+                bandMembers: {
+                    member: req.body.userID
+                }
+            }
+        })
+            .exec((err, data) => {
+                err ? res.send(err) : res.json(data)
+            })
     })
 
     function decodeUserID(token) {
