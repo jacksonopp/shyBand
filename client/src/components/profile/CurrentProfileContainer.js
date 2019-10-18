@@ -16,7 +16,6 @@ export default function Proflie() {
     const token = localStorage.jwtToken.substr(7);
     request.get(`/api/user/${token}`)
       .then(res => {
-        console.log(res.body);
         setUser(res.body);
         setUserBands(res.body.bands)
         setInstruments(res.body.instruments);

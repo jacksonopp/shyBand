@@ -31,7 +31,6 @@ export default function BrowsePage() {
     const token = localStorage.jwtToken.substr(7);
     request.get(`/api/users/all/${token}`)
       .then(res => {
-        console.log(res.body);
         setUsers(res.body);
       })
       .catch(err => console.log(err));

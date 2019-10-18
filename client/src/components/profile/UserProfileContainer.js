@@ -17,7 +17,6 @@ export default function UserProfile({ match }) {
 	useEffect(() => {
 		request.get(`/api/users/${id}`)
 			.then(res => {
-				console.log(res.body);
 				setUser(res.body);
 				setInstruments(res.body.instruments);
 				setBand(res.body.favoriteBands);

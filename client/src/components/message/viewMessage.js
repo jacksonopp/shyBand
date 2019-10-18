@@ -17,10 +17,8 @@ export default function ViewMessages() {
 				});
 			// pull out all user's threads
 			let threads = [];
-			console.log("user", user);
 			setCurrentUser(user);
 			threads = user.thread;
-			console.log("threads:", threads);
 			// get all the threads info from Threads model
 			setMessageThreads(threads);
 		}

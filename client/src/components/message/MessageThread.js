@@ -18,7 +18,6 @@ export default function MessageThread({ match }) {
     function getMessages() {
         request.get(`/api/thread/${threadId}`)
             .then(res => {
-                console.log('tick')
                 // console.log("res: ", res.body);
                 setMessages(res.body.messages);
                 // console.log("from user:",res.body.fromUser)

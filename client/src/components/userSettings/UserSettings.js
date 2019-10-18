@@ -11,7 +11,6 @@ export default function UserSettings() {
         request.get(`/api/user/${token}`)
             .then(res => {
                 setBands(res.body.bands)
-                console.log(res.body)
             })
     }, [])
     return (

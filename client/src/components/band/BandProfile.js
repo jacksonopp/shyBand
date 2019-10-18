@@ -15,7 +15,6 @@ export default function BandProfile({ match }) {
       .then(res => {
         setBandName(res.body.bandName);
         setBandId(res.body._id);
-        console.log("bands:", res.body)
         res.body.bandMembers.map(member => {
           request.get(`/api/users/${member.member}`)
             .then(res => {
@@ -24,8 +23,6 @@ export default function BandProfile({ match }) {
                 name: res.body.name,
                 role: member.role
               }
-              console.log("newMember:", newMember);
-              console.log("members name:", res.body.name);
               setMembers(members => [...members, newMember]);
             })
         })

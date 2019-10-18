@@ -29,7 +29,7 @@ export default function UpdateBio() {
                 favBand,
                 genre
               })
-              .then(res => console.log(res.body))
+              .then(res => { })
               .catch(err => console.log(err))
           }
         }>Submit</button>
