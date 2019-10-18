@@ -15,6 +15,8 @@ import PrivateRoute from "./components/private-route/PrivateRoute";
 
 import "./App.css";
 
+import { Grommet } from 'grommet'
+
 import Dashboard from "./components/dashboard/Dashboard";
 import CurrentProfileContainer from "./components/profile/CurrentProfileContainer";
 import BrowsePage from "./components/browse/BrowsePage";
@@ -99,42 +101,39 @@ const routes = [
   }
 
 ]
+const theme = {
+  global: {
+    font: {
+      family: 'Roboto',
+      size: '14px',
+      height: '20px'
+    }
+  }
+}
 class App extends Component {
   render() {
     return (
-      <Provider store={store}>
-        <Router>
-          <div className="App">
-            <Navbar />
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <Switch>
-              {routes.map(({ path, component }) => (
-                <PrivateRoute
-                  key={path}
-                  exact path={path}
-                  component={component}
-                />
-              ))}
-              {/* <PrivateRoute exact path="/dashboard" component={Dashboard} />
-              <PrivateRoute exact path="/profile" component={CurrentProfile} />
-              <PrivateRoute exact path="/browse" component={BrowsePage} />
-              <PrivateRoute exact path="/updateBio" component={UpdateBio} /> */}
-            </Switch>
-          </div>
-        </Router>
-      </Provider>
+      <Grommet theme={theme}>
+        <Provider store={store}>
+          <Router>
+            <div className="App">
+              <Route exact path="/" component={Landing} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+              <Switch>
+                {routes.map(({ path, component }) => (
+                  <PrivateRoute
+                    key={path}
+                    exact path={path}
+                    component={component}
+                  />
+                ))}
+              </Switch>
+            </div>
+          </Router>
+        </Provider>
+      </Grommet>
     );
   }
 }
 export default App;
-
-function Id() {
-  // const { id } = useParams();
-  return <UserProflieContainer />
-}
-
-function MessagePage() {
-  return <SendMessagePage />
-}
