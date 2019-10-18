@@ -1,27 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
 import request from "superagent";
 
 import { Box, Select } from 'grommet';
 
 import UserLI from './UserLI';
 
-function displayUsers(user) {
-  return (
-    <>
-      <div key={user.name}>
-        <p>name: {user.name}</p>
-        <span>instruments: {user.instruments.map(instrument => (
-          <p key={instrument.instrument}>{instrument.instrument}</p>
-        ))}</span>
-        <span>genres: {user.genre.map(gen => (
-          <p key={gen.genre}>{gen.genre}</p>
-        ))}</span>
-        <Link to={"profile/" + user._id}>View Proflie</Link>
-        <hr />
-      </div>
-    </>)
-}
 
 export default function BrowsePage() {
   const [users, setUsers] = useState([]);
@@ -63,6 +46,7 @@ export default function BrowsePage() {
 
       <Box
         direction="row"
+        gap="small"
       >
         <Select
           options={["All", "Instrument", "Genre"]}
@@ -84,22 +68,30 @@ export default function BrowsePage() {
           />
         )}
       </Box>
-      {users.map(user => {
-        if (select === "all") {
-          return <UserLI user={user} />
-        } else if (select === "Genre") {
-          if (user.genre.some(genre => genre.genre === genreSelect)) {
-            return <UserLI user={user} />
-          }
-        } else if (select === "Instrument") {
-          if (user.instruments.some(instrument => instrument.instrument === instSelect)) {
-            return <UserLI user={user} />
-          }
-        } else {
-          return <UserLI user={user} />
-        }
 
-      })}
+      <Box
+        margin={{
+          top: "small"
+        }}
+        gap="small"
+      >
+        {users.map(user => {
+          if (select === "all") {
+            return <UserLI user={user} />
+          } else if (select === "Genre") {
+            if (user.genre.some(genre => genre.genre === genreSelect)) {
+              return <UserLI user={user} />
+            }
+          } else if (select === "Instrument") {
+            if (user.instruments.some(instrument => instrument.instrument === instSelect)) {
+              return <UserLI user={user} />
+            }
+          } else {
+            return <UserLI user={user} />
+          }
+
+        })}
+      </Box>
     </Box>
   )
 }
