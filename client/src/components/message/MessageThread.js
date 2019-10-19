@@ -43,7 +43,7 @@ export default function MessageThread({ match }) {
   useEffect(() => {
     const interval = setInterval(() => {
       getMessages()
-    }, 3000)
+    }, 700)
     return () => { clearInterval(interval) }
   }, [])
 
@@ -68,7 +68,7 @@ export default function MessageThread({ match }) {
         direction="column"
       >
         {messages.map(message => {
-          if (message.fromUser._id === user.id) {
+          if (message.toUser._id === user.id) {
             return (
               <Box
                 key={message._id}
@@ -130,6 +130,7 @@ export default function MessageThread({ match }) {
           currentUserId={user.id}
           currentUserName={user.name}
           toUserId={toUser}
+          refresh={getMessages}
         />
       </div>
     </Box>

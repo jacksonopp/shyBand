@@ -34,7 +34,6 @@ function apiGetMembers(input, setMembersCB) {
       }
       setMembersCB(existingMembers => [...existingMembers, newUser])
     })
-
 }
 
 function apiGetRequests(input, setRequestsCB) {
