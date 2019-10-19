@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import request from "superagent";
+import { Box } from "grommet"
 
 import Profile from "./Profile"
 
@@ -25,9 +26,14 @@ export default function Proflie() {
       .catch(err => console.log(err))
   }, [])
   return (
-    <>
+    <Box
+      pad={{
+        left: "medium",
+        right: "medium"
+      }}
+    >
       <Profile userName={user.name} instruments={instruments} favBands={band} genres={genre} userBands={userBands} />
-    </>
+    </Box>
   )
 }
 

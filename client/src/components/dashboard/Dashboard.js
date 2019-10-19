@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 import { Box } from 'grommet';
 
-import Navbar from "../layout/Navbar"
 
 class Dashboard extends Component {
   onLogoutClick = e => {
