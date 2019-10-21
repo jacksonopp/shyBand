@@ -8,13 +8,15 @@ export default function Profile({ userName, instruments, favBands, genres, userB
   return (
     <Box
       pad="small"
+    // margin={{
+    //   top: "7vh"
+    // }}
     >
       {/* Profile Pic */}
       <Box
         className="profilePicBox"
         align="center"
         pad={{
-          top: "medium",
           bottom: "medium"
         }}
         border={{
@@ -106,7 +108,7 @@ export default function Profile({ userName, instruments, favBands, genres, userB
           pad="small"
           height="small"
         >
-          <Box align="center" margin={{ bottom: "medium" }}>
+          <Box align="center" margin={{ bottom: "medium" }} width="100vw">
             <Text size="xsmall" color="dark-2">{userName}'s BANDS</Text>
           </Box>
           <Box wrap={true}>

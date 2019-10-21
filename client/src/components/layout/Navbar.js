@@ -18,7 +18,7 @@ class Navbar extends Component {
         pad={{ vertical: 'medium', horizontal: 'medium' }}
         elevation='medium'
       >
-        <Link to="/dashboard"><Menu color="neutral-2" /></Link>
+        <Link to="/sidebar"><Menu color="neutral-2" /></Link>
 
         <Box
           direction="row"

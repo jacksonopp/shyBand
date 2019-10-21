@@ -29,10 +29,9 @@ export default function UserProfile({ match }) {
   }, [])
   return (
     <Box
-      pad={{
-        left: "medium",
-        right: "medium",
-        top: "medium"
+      pad="medium"
+      margin={{
+        top: "7vh"
       }}
     >
       <Link to="/browse"><Previous color="neutral-2" /></Link>

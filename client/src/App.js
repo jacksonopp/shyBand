@@ -29,6 +29,7 @@ import CreateBand from "./components/band/CreateBand"
 import BandProfile from "./components/band/BandProfile";
 import UserSettings from "./components/userSettings/UserSettings";
 import ManageBand from "./components/userSettings/ManageBand";
+import Sidebar from "./components/sidebar/Sidebar"
 
 
 // Check for token to keep user logged in
@@ -98,6 +99,10 @@ const routes = [
   {
     path: "/manage/:id",
     component: ManageBand
+  },
+  {
+    path: "/sidebar",
+    component: Sidebar
   }
 
 ]

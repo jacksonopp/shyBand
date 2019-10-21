@@ -204,7 +204,9 @@ module.exports = function (app) {
     })
     // get all messages from a thread
     app.get("/api/thread/:id", async function (req, res) {
-        const dbThread = await db.Thread.findById(req.params.id)
+        const dbThread = await db.Thread.findById(
+            req.params.id
+        )
             .populate("messages")
             .populate({
                 path: "messages",
@@ -225,6 +227,8 @@ module.exports = function (app) {
         res.json(dbThread);
 
     })
+    //set messages to read
+
     //add a message to a thread
     app.post("/api/thread/:id", async function (req, res) {
         console.log(req.body);
@@ -239,7 +243,8 @@ module.exports = function (app) {
         }, {
             $push: {
                 messages: dbMessage._id
-            }
+            },
+            read: false
         })
         res.json({ message: "working on it" });
     })

@@ -35,9 +35,10 @@ export default function MessageThread({ match }) {
         };
       })
   }
+
   // gets messages on page load
   useEffect(() => {
-    getMessages()
+    getMessages();
   }, [])
   // gets messages every 3 seconds
   useEffect(() => {
