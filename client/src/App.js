@@ -21,7 +21,7 @@ import BrowsePage from "./components/browse/BrowsePage";
 import UpdateBio from "./components/userSettings/UpdateBio";
 import UserProflieContainer from "./components/profile/UserProfileContainer";
 import SendMessagePage from "./components/message/SendMessagePage";
-import ViewMessages from "./components/message/ViewMessage";
+import ViewMessages from "./components/message/MessagesPage";
 import MessageThread from "./components/message/MessageThread";
 import CreateBand from "./components/band/CreateBand"
 import BandProfile from "./components/band/BandProfile";
