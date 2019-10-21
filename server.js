@@ -8,8 +8,9 @@ const users = require("./routes/api/users");
 
 const app = express();
 
-// app.use(express.static("client"))
-
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 // Bodyparser middleware
 app.use(
   bodyParser.urlencoded({
@@ -32,6 +33,10 @@ require("./config/passport")(passport);
 
 // Routes
 app.use("/api/users", users);
+
+router.use(function (req, res) {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
 
 const port = process.env.PORT || 5000;
 
