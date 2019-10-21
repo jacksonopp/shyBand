@@ -15,7 +15,11 @@ const ThreadSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: "Message"
         }
-    ]
+    ],
+    read: {
+        type: Boolean,
+        default: false
+    }
 })
 
 module.exports = Thread = mongoose.model("Thread", ThreadSchema);

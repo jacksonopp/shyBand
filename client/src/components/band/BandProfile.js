@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import request from "superagent";
 
+import { Box, Button, Heading, Text, TextInput } from 'grommet';
+
 export default function BandProfile({ match }) {
   const [bandId, setBandId] = useState("");
   const [bandName, setBandName] = useState("");
@@ -15,7 +17,6 @@ export default function BandProfile({ match }) {
       .then(res => {
         setBandName(res.body.bandName);
         setBandId(res.body._id);
-        console.log("bands:", res.body)
         res.body.bandMembers.map(member => {
           request.get(`/api/users/${member.member}`)
             .then(res => {
@@ -24,8 +25,6 @@ export default function BandProfile({ match }) {
                 name: res.body.name,
                 role: member.role
               }
-              console.log("newMember:", newMember);
-              console.log("members name:", res.body.name);
               setMembers(members => [...members, newMember]);
             })
         })
@@ -34,27 +33,56 @@ export default function BandProfile({ match }) {
   }, [])
   const token = localStorage.jwtToken.substr(7)
   return (
-    <>
-      <h1>{bandName}</h1>
-      <h3>Members</h3>
-      <div>{members.map(member => {
-        return <p>{member.name}:{member.role}</p>
+    <Box
+      margin={{
+        top: "7vh"
+      }}
+      direction="column"
+      pad="medium"
+      gap="small"
+    >
+      <Heading>{bandName}</Heading>
+      <Heading level="3">Members</Heading>
+      <Box>{members.map(member => {
+        return (
+          <>
+            <Text size="small"><strong>{member.name}</strong> on the <strong>{member.role}</strong></Text>
+          </>
+        )
       }
-      )}</div>
-      <h3>Want to join this band?</h3>
-      <label for="instrument">What instrument do you play?</label>
-      <input id="instrument" value={joinInst} onChange={e => setJoinInst(e.target.value)} />
-
-      <button onClick={e => {
-        e.preventDefault();
-        console.log(bandId);
-        request.post(`/api/band/join/${bandId}`)
-          .send({
-            joinInst,
-            token
-          })
-          .then(res => console.log(res.body))
-      }}>request to join</button>
-    </>
+      )}</Box>
+      <Box
+        gap="small"
+      >
+        <Heading level="3">Want to join this band?</Heading>
+        <TextInput
+          id="instrument"
+          value={joinInst}
+          onChange={e => setJoinInst(e.target.value)}
+          placeholder="what instrument do you play?"
+          aria-label="what instrument do you play?"
+        />
+        <Button
+          color="neutral-2"
+          label="request to join"
+          alignSelf="center"
+          onClick={
+            e => {
+              e.preventDefault();
+              console.log(bandId);
+              request.post(`/api/band/join/${bandId}`)
+                .send({
+                  joinInst,
+                  token
+                })
+                .then(res => {
+                  console.log(res.body)
+                  window.location.href = `/profile/${res.body.bandOwner}`
+                })
+            }
+          }
+        />
+      </Box>
+    </Box >
   )
 }
