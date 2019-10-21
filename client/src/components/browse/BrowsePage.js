@@ -1,28 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
 import request from "superagent";
+
+import { Box, Select } from 'grommet';
+
 import UserLI from './UserLI';
 
-function displayUsers(user) {
-  return (
-    <>
-      <div key={user.name}>
-        <p>name: {user.name}</p>
-        <span>instruments: {user.instruments.map(instrument => (
-          <p key={instrument.instrument}>{instrument.instrument}</p>
-        ))}</span>
-        <span>genres: {user.genre.map(gen => (
-          <p key={gen.genre}>{gen.genre}</p>
-        ))}</span>
-        <Link to={"profile/" + user._id}>View Proflie</Link>
-        <hr />
-      </div>
-    </>)
-}
 
 export default function BrowsePage() {
   const [users, setUsers] = useState([]);
-  const [select, setSelect] = useState("all");
+  const [select, setSelect] = useState("All");
   const [genreList, setGenreList] = useState([]);
   const [genreSelect, setGenreSelect] = useState("");
   const [instList, setInstList] = useState([]);
@@ -31,7 +17,6 @@ export default function BrowsePage() {
     const token = localStorage.jwtToken.substr(7);
     request.get(`/api/users/all/${token}`)
       .then(res => {
-        console.log(res.body);
         setUsers(res.body);
       })
       .catch(err => console.log(err));
@@ -50,46 +35,63 @@ export default function BrowsePage() {
   }, [])
 
   return (
-    <>
-      <h1>Browse</h1>
-      <form>
-        <label>{select}</label>
-        <select value={select} onChange={e => setSelect(e.target.value)}>
-          <option selected value="all">All</option>
-          <option value="instrument">Instrument</option>
-          <option value="genre">Genre</option>
-        </select>
-      </form>
-      {select === "genre" && (
-        <select value={genreSelect} onChange={e => setGenreSelect(e.target.value)}>
-          {genreList.map(genre => (
-            <option value={genre} key={genre}>{genre}</option>
-          ))}
-        </select>
-      )}
-      {select === "instrument" && (
-        <select value={instSelect} onChange={e => setInstSelect(e.target.value)}>
-          {instList.map(inst => (
-            <option value={inst} key={inst}>{inst}</option>
-          ))}
-        </select>
-      )}
-      {users.map(user => {
-        if (select === "all") {
-          return <UserLI user={user} />
-        } else if (select === "genre") {
-          if (user.genre.some(genre => genre.genre === genreSelect)) {
-            return <UserLI user={user} />
-          }
-        } else if (select === "instrument") {
-          if (user.instruments.some(instrument => instrument.instrument === instSelect)) {
-            return <UserLI user={user} />
-          }
-        } else {
-          return <UserLI user={user} />
-        }
+    <Box
+      pad={{
+        left: "medium",
+        right: "medium"
 
-      })}
-    </>
+      }}
+    >
+      <h1>Browse</h1>
+
+      <Box
+        direction="row"
+        gap="small"
+      >
+        <Select
+          options={["All", "Instrument", "Genre"]}
+          value={select}
+          onChange={({ option }) => setSelect(option)}
+        />
+        {select === "Genre" && (
+          <Select
+            options={genreList}
+            value={genreSelect}
+            onChange={({ option }) => setGenreSelect(option)}
+          />
+        )}
+        {select === "Instrument" && (
+          <Select
+            options={instList}
+            value={instSelect}
+            onChange={({ option }) => setInstSelect(option)}
+          />
+        )}
+      </Box>
+
+      <Box
+        margin={{
+          top: "small"
+        }}
+        gap="small"
+      >
+        {users.map(user => {
+          if (select === "all") {
+            return <UserLI user={user} />
+          } else if (select === "Genre") {
+            if (user.genre.some(genre => genre.genre === genreSelect)) {
+              return <UserLI user={user} />
+            }
+          } else if (select === "Instrument") {
+            if (user.instruments.some(instrument => instrument.instrument === instSelect)) {
+              return <UserLI user={user} />
+            }
+          } else {
+            return <UserLI user={user} />
+          }
+
+        })}
+      </Box>
+    </Box>
   )
 }

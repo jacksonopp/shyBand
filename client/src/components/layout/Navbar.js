@@ -1,17 +1,38 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+import { Box } from 'grommet';
+import { Chat, Home, Search, Menu, Music } from 'grommet-icons';
+
+import "./navbar.css"
+
 class Navbar extends Component {
   render() {
     return (
-      <span>navbar
-        <Link to="/dashboard"> | dashboard</Link>
-        <Link to="/profile"> | profile</Link>
-        <Link to="/browse"> | browse</Link>
-        <Link to="/viewMessage"> | view messages</Link>
-        <Link to="/createBand"> | create a band</Link>
-        <Link to="/settings"> | settings</Link>
-      </span>
+      <Box
+        tag='header'
+        direction='row'
+        align='center'
+        justify='stretch'
+        background='light-2'
+        pad={{ vertical: 'medium', horizontal: 'medium' }}
+        elevation='medium'
+      >
+        <Link to="/sidebar"><Menu color="neutral-2" /></Link>
+
+        <Box
+          direction="row"
+          align="center"
+          justify="center"
+          fill="horizontal"
+          gap="20vw"
+        >
+          <Link to="/dashboard" ><Home color="neutral-2" /></Link>
+          <Link to="/browse"><Search color="neutral-2" /></Link>
+          <Link to="/viewMessage"><Chat color="neutral-2" /></Link>
+        </Box>
+
+      </Box >
     );
   }
 }

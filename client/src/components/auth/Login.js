@@ -5,6 +5,10 @@ import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 import classnames from "classnames";
 
+import { Box, Heading, Text, TextInput, Button } from 'grommet'
+import { Previous, Music } from 'grommet-icons'
+
+
 class Login extends Component {
   constructor() {
     super();
@@ -53,74 +57,86 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="container">
-        <div style={{ marginTop: "4rem" }} className="row">
-          <div className="col s8 offset-s2">
-            <Link to="/" className="btn-flat waves-effect">
-              <i className="material-icons left">keyboard_backspace</i> Back to
-              home
-            </Link>
-            <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-              <h4>
-                <b>Login</b> below
-              </h4>
-              <p className="grey-text text-darken-1">
-                Don't have an account? <Link to="/register">Register</Link>
-              </p>
-            </div>
-            <form noValidate onSubmit={this.onSubmit}>
-              <div className="input-field col s12">
-                <input
-                  onChange={this.onChange}
-                  value={this.state.email}
-                  error={errors.email}
-                  id="email"
-                  type="email"
-                  className={classnames("", {
-                    invalid: errors.email || errors.emailnotfound
-                  })}
-                />
-                <label htmlFor="email">Email</label>
-                <span className="red-text">
-                  {errors.email}
-                  {errors.emailnotfound}
-                </span>
-              </div>
-              <div className="input-field col s12">
-                <input
-                  onChange={this.onChange}
-                  value={this.state.password}
-                  error={errors.password}
-                  id="password"
-                  type="password"
-                  className={classnames("", {
-                    invalid: errors.password || errors.passwordincorrect
-                  })}
-                />
-                <label htmlFor="password">Password</label>
-                <span className="red-text">
-                  {errors.password}
-                  {errors.passwordincorrect}
-                </span>
-              </div>
-              <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-                <button
-                  style={{
-                    width: "150px",
-                    borderRadius: "3px",
-                    letterSpacing: "1.5px",
-                    marginTop: "1rem"
-                  }}
-                  type="submit"
-                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-                >
-                  Login
-                </button>
-              </div>
-            </form>
+      <Box
+        align="center"
+        pad={{
+          top: "100px"
+        }}>
+        <Box
+          align="center"
+          border={{
+            color: "neutral-2",
+            size: "small"
+          }}
+          pad="xlarge"
+          // width="medium"
+          elevation="medium"
+          round="4px"
+        >
+          <Link to="/">
+            <Previous color="neutral-2" />
+          </Link>
+
+
+          <div>
+            <Heading>
+              <b>Login</b> below
+            </Heading>
+            <p>
+              Don't have an account? <Link to="/register">Register</Link>
+            </p>
           </div>
-        </div>
-      </div>
+          <form noValidate onSubmit={this.onSubmit}>
+            <Box gap="xsmall">
+              <TextInput
+                placeholder="email"
+                aria-label="email"
+                onChange={this.onChange}
+                value={this.state.email}
+                error={errors.email}
+                id="email"
+                type="email"
+                className={classnames("", {
+                  invalid: errors.email || errors.emailnotfound
+                })} />
+              <span className="red-text">
+                {errors.email}
+                {errors.emailnotfound}
+              </span>
+              <TextInput
+                placeholder="password"
+                aria-label="password"
+                onChange={this.onChange}
+                value={this.state.password}
+                error={errors.password}
+                id="password"
+                type="password"
+                className={classnames("", {
+                  invalid: errors.password || errors.passwordincorrect
+                })} />
+              <span className="red-text">
+                {errors.password}
+                {errors.passwordincorrect}
+              </span>
+            </Box>
+
+            <Box
+              align="center"
+              pad={{
+                top: "small"
+              }}
+            >
+              <Button
+                icon={<Music color="neutral-2" />}
+                label="login"
+                a11yTitle="login"
+                type="submit"
+                color="neutral-2"
+                alignSelf="center" />
+            </Box>
+          </form>
+        </Box>
+      </Box>
     );
   }
 }

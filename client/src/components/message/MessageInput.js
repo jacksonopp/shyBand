@@ -1,18 +1,31 @@
 import React, { useState } from 'react';
 
+import { Box, Button, TextInput } from 'grommet'
+import { Send } from 'grommet-icons';
+
 import request from "superagent";
 
-export default function MessageInput({ threadId, currentUserId, currentUserName, toUserId }) {
-  const [message, setMessage] = useState("")
+export default function MessageInput({ threadId, currentUserId, currentUserName, toUserId, refresh }) {
+  const [message, setMessage] = useState("");
   return (
-    <>
-      <textarea
+    <Box
+      direction="row"
+      margin={{
+        bottom: "small",
+        right: "medium"
+      }}
+      pad={{
+        top: "small"
+      }}
+      align="center"
+    >
+
+      <TextInput
         value={message}
         onChange={e => setMessage(e.target.value)}
-      >
-
-      </textarea>
-      <button
+      />
+      <Button
+        icon={<Send color="neutral-2" />}
         onClick={() => {
           request.post(`/api/thread/${threadId}`)
             .send({
@@ -21,10 +34,9 @@ export default function MessageInput({ threadId, currentUserId, currentUserName,
               toUser: toUserId,
               threadId
             })
-            .then(res => console.log(res.body));
-          window.location.reload();
+            .then(res => setMessage(""));
         }}
-      >Submit</button>
-    </>
+      />
+    </Box >
   )
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import request from "superagent";
+import { Box } from "grommet"
 
 import Profile from "./Profile"
 
@@ -16,7 +17,6 @@ export default function Proflie() {
     const token = localStorage.jwtToken.substr(7);
     request.get(`/api/user/${token}`)
       .then(res => {
-        console.log(res.body);
         setUser(res.body);
         setUserBands(res.body.bands)
         setInstruments(res.body.instruments);
@@ -26,9 +26,17 @@ export default function Proflie() {
       .catch(err => console.log(err))
   }, [])
   return (
-    <>
+    <Box
+      pad={{
+        left: "medium",
+        right: "medium"
+      }}
+      margin={{
+        top: "7vh"
+      }}
+    >
       <Profile userName={user.name} instruments={instruments} favBands={band} genres={genre} userBands={userBands} />
-    </>
+    </Box>
   )
 }
 
