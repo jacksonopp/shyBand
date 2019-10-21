@@ -50,18 +50,23 @@ export default function MessageThread({ match }) {
   return (
     <Box
       pad="medium"
+      margin={{
+        top: "small"
+      }}
     >
-      <Box
-        direction="row"
-        align="center"
-        gap="small"
-      >
-        <Link to="/ViewMessage"><Previous color="neutral-2" /></Link>
-        <Heading margin={{
-          top: "none",
-          bottom: "small"
-        }}>{toUserName}</Heading>
-      </Box>
+      <div className="backButton">
+        <Box
+          direction="row"
+          align="center"
+          gap="small"
+        >
+          <Link to="/ViewMessage"><Previous color="neutral-2" /></Link>
+          <Heading margin={{
+            top: "none",
+            bottom: "small"
+          }}>{toUserName}</Heading>
+        </Box>
+      </div>
       <Box
         className="messages"
         gap="small"
@@ -88,6 +93,7 @@ export default function MessageThread({ match }) {
                   type: "slideRight",
                   duration: 250
                 }}
+                elevation="small"
               >
                 <Text color="light-1">{message.message}</Text>
                 {/* <Text color="light-1">sent by: {message.fromUser.name}</Text> */}
@@ -115,6 +121,7 @@ export default function MessageThread({ match }) {
                   type: "slideLeft",
                   duration: 250
                 }}
+                elevation="small"
               >
                 <Text>{message.message}</Text>
                 {/* <Text>sent by: {message.fromUser.name}</Text> */}

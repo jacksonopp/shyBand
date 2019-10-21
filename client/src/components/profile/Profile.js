@@ -21,7 +21,6 @@ export default function Profile({ userName, instruments, favBands, genres, userB
           side: "bottom",
           color: "light-6"
         }}
-        elevation
       >
         <Box elevation="small">
           <Image
@@ -32,7 +31,6 @@ export default function Profile({ userName, instruments, favBands, genres, userB
       {/* Profile Info */}
       <Box
         className="profileInfoBox"
-        align="left"
       >
         {/* Username */}
         <Box

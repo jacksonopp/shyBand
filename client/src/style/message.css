@@ -5,5 +5,10 @@
    width: 100vw;
 }
 .messages {
-   margin-bottom: 100px;
+   margin-bottom: 7vh;
+   margin-top: 10vh;
+}
+.backButton {
+   position: fixed;
+   top: 7vh;
 }

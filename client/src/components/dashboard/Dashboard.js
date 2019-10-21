@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 
 import { Box } from 'grommet';
 
+import "./dashboard.css"
+
 
 class Dashboard extends Component {
   onLogoutClick = e => {
@@ -17,10 +19,14 @@ class Dashboard extends Component {
     const { user } = this.props.auth;
 
     return (
+      // <div className="dashboard">
       <Box
         pad={{
           left: "medium",
           right: "medium"
+        }}
+        margin={{
+          top: "xlarge"
         }}
       >
         <h4>
@@ -28,7 +34,7 @@ class Dashboard extends Component {
           <p className="flow-text grey-text text-darken-1">
             You are logged into a full-stack{" "}
             <span style={{ fontFamily: "monospace" }}>MERN</span> app 👏
-            </p>
+              </p>
         </h4>
         <Link to="/dashboard" >dashboard</Link>
         <Link to="/profile">profile</Link>
@@ -38,6 +44,7 @@ class Dashboard extends Component {
         <Link to="/settings">settings</Link>
         <Link to="#" onClick={this.onLogoutClick}>logout</Link>
       </Box>
+      // </div>
     );
   }
 }

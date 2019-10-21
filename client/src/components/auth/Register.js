@@ -68,13 +68,12 @@ class Register extends Component {
             color: "neutral-2",
             size: "small"
           }}
-          pad="large"
+          pad="xlarge"
           // width="medium"
           elevation="medium"
           round="4px">
           <Link to="/" >
             <Previous color="neutral-2" />
-            <Text color="neutral-2">Back to home</Text>
           </Link>
           <Box>
             <Heading>

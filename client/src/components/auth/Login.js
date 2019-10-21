@@ -68,19 +68,18 @@ class Login extends Component {
             color: "neutral-2",
             size: "small"
           }}
-          pad="large"
+          pad="xlarge"
           // width="medium"
           elevation="medium"
           round="4px"
         >
-
           <Link to="/">
             <Previous color="neutral-2" />
-            <Text alignSelf="end" color="neutral-2">Back to home</Text>
           </Link>
 
+
           <div>
-            <Heading level='2'>
+            <Heading>
               <b>Login</b> below
             </Heading>
             <p>

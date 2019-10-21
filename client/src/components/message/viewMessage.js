@@ -30,6 +30,9 @@ export default function ViewMessages() {
       pad="medium"
       direction="column"
       gap="small"
+      margin={{
+        top: "xlarge"
+      }}
     >
       {messageThreads.map(thread => {
         let toUserName = "";
@@ -47,7 +50,10 @@ export default function ViewMessages() {
               pad="small"
             >
               <Heading level={4} margin="none">{toUserName || thread.toUser.name}</Heading>
-              <Text>{thread.messages[thread.messages.length - 1].message}</Text>
+              <Text>
+                {thread.messages[thread.messages.length - 1].message.substr(0, 35)}
+                {thread.messages[thread.messages.length - 1].message.length > 35 && "..."}
+              </Text>
             </Box>
           </Link>
         )
