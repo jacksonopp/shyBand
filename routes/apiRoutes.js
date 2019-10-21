@@ -127,7 +127,7 @@ module.exports = function (app) {
                 }
             )
         }
-        res.json({ message: "updated" });
+        res.json({ id });
 
 
 
@@ -268,6 +268,7 @@ module.exports = function (app) {
     })
     //get band info
     app.get("/api/band/:id", async function (req, res) {
+        console.log("$$$$$$$$$$$$$$$$$$$$$", req.params.id)
         const bandID = req.params.id;
         const dbBand = await db.Band.findById(bandID)
             .populate("bandOwner")

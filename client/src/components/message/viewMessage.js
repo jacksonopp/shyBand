@@ -48,6 +48,7 @@ export default function ViewMessages() {
               }}
               round="4px"
               pad="small"
+              elevation="small"
             >
               <Heading level={4} margin="none">{toUserName || thread.toUser.name}</Heading>
               <Text>

@@ -52,12 +52,14 @@ export default function Profile({ userName, instruments, favBands, genres, userB
           pad="small"
           height="xsmall"
         >
-          <Box align="center">
+          <Box align="center" margin={{ bottom: "small" }}>
             <Text size="xsmall" color="dark-2">INSTRUMENTS</Text>
           </Box>
-          {instruments.map(instrument => (
-            <span key={instrument.instrument}>{instrument.instrument} </span>
-          ))}
+          <Box wrap={true}>
+            {instruments.map(instrument => (
+              <span key={instrument.instrument}>{instrument.instrument} </span>
+            ))}
+          </Box>
         </Box>
         {/* Favorite Bands */}
         <Box
@@ -68,12 +70,14 @@ export default function Profile({ userName, instruments, favBands, genres, userB
           pad="small"
           height="xsmall"
         >
-          <Box align="center">
+          <Box align="center" margin={{ bottom: "small" }}>
             <Text size="xsmall" color="dark-2">FAVORITE BANDS</Text>
           </Box>
-          {favBands.map(band => (
-            <span key={band.bandName}>{band.bandName} </span>
-          ))}
+          <Box wrap={true}>
+            {favBands.map(band => (
+              <span key={band.bandName}>{band.bandName} </span>
+            ))}
+          </Box>
         </Box>
         {/* Genres */}
         <Box
@@ -84,12 +88,14 @@ export default function Profile({ userName, instruments, favBands, genres, userB
           pad="small"
           height="xsmall"
         >
-          <Box align="center">
+          <Box align="center" margin={{ bottom: "medium" }}>
             <Text size="xsmall" color="dark-2">GENRES</Text>
           </Box>
-          {genres.map(genre => (
-            <span key={genre.genre}>{genre.genre} </span>
-          ))}
+          <Box wrap={true}>
+            {genres.map(genre => (
+              <span key={genre.genre}>{genre.genre} </span>
+            ))}
+          </Box>
         </Box>
         {/* User Bands */}
         <Box
@@ -98,14 +104,19 @@ export default function Profile({ userName, instruments, favBands, genres, userB
             color: "light-6"
           }}
           pad="small"
-          height="xsmall"
+          height="small"
         >
-          <Box align="center">
+          <Box align="center" margin={{ bottom: "medium" }}>
             <Text size="xsmall" color="dark-2">{userName}'s BANDS</Text>
           </Box>
-          {userBands.map(band => (
-            <span key={band.bandName}><Link to={`/band/${band._id}`}>{band.bandName}</Link></span>
-          ))}</Box>
+          <Box wrap={true}>
+            {userBands.map(band => (
+              <Text size="small" margin={{ right: "xsmall" }} key={band.bandName} truncate={true}>
+                <Link to={`/band/${band._id}`}>{band.bandName}</Link>
+              </Text>
+            ))}
+          </Box>
+        </Box>
       </Box>
     </Box>
   )

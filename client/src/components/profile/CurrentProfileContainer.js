@@ -31,6 +31,9 @@ export default function Proflie() {
         left: "medium",
         right: "medium"
       }}
+      margin={{
+        top: "7vh"
+      }}
     >
       <Profile userName={user.name} instruments={instruments} favBands={band} genres={genre} userBands={userBands} />
     </Box>
