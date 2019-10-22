@@ -1,14 +1,16 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { Box } from 'grommet';
-import { Chat, Home, Search, Menu, Music } from 'grommet-icons';
+import { ChatOption, Home, Search, Menu, Music } from 'grommet-icons';
 
 import "./navbar.css"
+import SideBar from '../sidebar/Sidebar';
 
-class Navbar extends Component {
-  render() {
-    return (
+export default function Navbar() {
+  const [isMenuDisplay, setIsMenuDisplay] = useState(false)
+  return (
+    <>
       <Box
         tag='header'
         direction='row'
@@ -18,7 +20,12 @@ class Navbar extends Component {
         pad={{ vertical: 'medium', horizontal: 'medium' }}
         elevation='medium'
       >
-        <Link to="/sidebar"><Menu color="neutral-2" /></Link>
+        <Menu
+          color="neutral-2"
+          onClick={() => {
+            isMenuDisplay ? setIsMenuDisplay(false) : setIsMenuDisplay(true)
+          }}
+        />
 
         <Box
           direction="row"
@@ -29,12 +36,11 @@ class Navbar extends Component {
         >
           <Link to="/dashboard" ><Home color="neutral-2" /></Link>
           <Link to="/browse"><Search color="neutral-2" /></Link>
-          <Link to="/viewMessage"><Chat color="neutral-2" /></Link>
+          <Link to="/viewMessage"><ChatOption color="neutral-2" /></Link>
         </Box>
 
       </Box >
-    );
-  }
+      {isMenuDisplay && <SideBar />}
+    </>
+  );
 }
-
-export default Navbar;

@@ -9,7 +9,7 @@ import { Previous } from "grommet-icons";
 
 import MessageInput from './MessageInput';
 
-import "../../style/message.css"
+import "./messages.css"
 
 export default function MessageThread({ match }) {
   const user = jwtDecode(localStorage.jwtToken.substr(7));

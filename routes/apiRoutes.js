@@ -160,6 +160,22 @@ module.exports = function (app) {
             .exec((err, data) => {
                 err ? res.send(err) : res.json(data);
             })
+    });
+    //get most recent messages
+    app.get("/api/thread/recent/:token", async function (req, res) {
+        const userID = decodeUserID(req.params.token)
+        const dbThread = await db.Thread.find({
+            $or: [
+                { toUser: userID },
+                { fromUser: userID }
+            ]
+        })
+            .sort({ lastUpdated: -1 })
+            .populate("messages")
+            .populate("fromUser")
+            .populate("toUser")
+            .limit(3)
+        res.json({ dbThread })
     })
     //add a message
     app.post("/api/thread", async function (req, res) {
@@ -227,7 +243,6 @@ module.exports = function (app) {
         res.json(dbThread);
 
     })
-    //set messages to read
 
     //add a message to a thread
     app.post("/api/thread/:id", async function (req, res) {
@@ -244,6 +259,7 @@ module.exports = function (app) {
             $push: {
                 messages: dbMessage._id
             },
+            lastUpdated: Date.now(),
             read: false
         })
         res.json({ message: "working on it" });

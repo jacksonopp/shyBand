@@ -1,4 +1,15 @@
+.message-input {
+   position: fixed;
+   bottom: 0;
+   background: white;
+   width: 100vw;
+}
+.messages {
+   margin-bottom: 7vh;
+   margin-top: 10vh;
+}
 .backButton {
    position: fixed;
-   top: 100px;
+   top: 7vh;
+   z-index: 1;
 }
