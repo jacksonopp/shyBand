@@ -4,8 +4,20 @@ import { Box } from "grommet"
 
 import Profile from "./Profile"
 
+function getFromApi({ setUser, setInstruments, setBand, setGenre, setUserBands }) {
+  const token = localStorage.jwtToken.substr(7);
+  request.get(`/api/user/${token}`)
+    .then(res => {
+      setUser(res.body);
+      setUserBands(res.body.bands)
+      setInstruments(res.body.instruments);
+      setBand(res.body.favoriteBands);
+      setGenre(res.body.genre);
+    })
+    .catch(err => console.log(err))
+}
+
 export default function Proflie() {
-  // const { currentUser } = auth
 
   const [user, setUser] = useState({});
   const [instruments, setInstruments] = useState([]);
@@ -13,18 +25,11 @@ export default function Proflie() {
   const [genre, setGenre] = useState([]);
   const [userBands, setUserBands] = useState([]);
 
+
   useEffect(() => {
-    const token = localStorage.jwtToken.substr(7);
-    request.get(`/api/user/${token}`)
-      .then(res => {
-        setUser(res.body);
-        setUserBands(res.body.bands)
-        setInstruments(res.body.instruments);
-        setBand(res.body.favoriteBands ? res.body.favoriteBands : ["none set yet"]);
-        setGenre(res.body.genre);
-      })
-      .catch(err => console.log(err))
+    getFromApi({ setUser, setInstruments, setBand, setGenre, setUserBands })
   }, [])
+
   return (
     <Box
       pad={{
@@ -42,7 +47,9 @@ export default function Proflie() {
         genres={genre}
         userBands={userBands}
         // TODO: im pretty sure showEdit is a security risk, so I want to go back and fix it
-        showEdit={true} />
+        showEdit={true}
+        update={() => getFromApi({ setUser, setInstruments, setBand, setGenre, setUserBands })}
+      />
     </Box>
   )
 }
