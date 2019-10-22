@@ -14,6 +14,7 @@ class Dashboard extends Component {
 	onLogoutClick = e => {
 		e.preventDefault();
 		this.props.logoutUser();
+		this.props.update();
 	};
 
 	render() {
@@ -32,40 +33,43 @@ class Dashboard extends Component {
 				// }}
 				background="light-2"
 				height="100vh"
-				width="50vw"
+				width={{
+					min: "188px",
+					max: "32vw"
+				}}
 				elevation="medium"
 			>
-				<Link to="/dashboard">
+				<Link to="/dashboard" onClick={() => this.props.update()}>
 					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
 						<DashboardIcon color="neutral-2" />
 						<Text margin="none">dashboard</Text>
 					</Box>
 				</Link>
-				<Link to="/profile">
+				<Link to="/profile" onClick={() => this.props.update()}>
 					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
 						<UserIcon color="neutral-2" />
 						<Text>my profile</Text>
 					</Box>
 				</Link>
-				<Link to="/browse">
+				<Link to="/browse" onClick={() => this.props.update()}>
 					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
 						<Search color="neutral-2" />
 						<Text>browse</Text>
 					</Box>
 				</Link>
-				<Link to="/viewMessage">
+				<Link to="/viewMessage" onClick={() => this.props.update()}>
 					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
 						<ChatOption color="neutral-2" />
 						<Text>view messages</Text>
 					</Box>
 				</Link>
-				<Link to="/createBand">
+				<Link to="/createBand" onClick={() => this.props.update()}>
 					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
 						<Music color="neutral-2" />
 						<Text>create a band</Text>
 					</Box>
 				</Link>
-				<Link to="/settings">
+				<Link to="/settings" onClick={() => this.props.update()}>
 					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
 						<Configure color="neutral-2" />
 						<Text>settings</Text>

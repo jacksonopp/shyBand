@@ -16,16 +16,22 @@ export default function Navbar() {
         direction='row'
         align='center'
         justify='stretch'
-        background='light-2'
+        background={'light-2'}
         pad={{ vertical: 'medium', horizontal: 'medium' }}
         elevation='medium'
+        height="50px"
       >
-        <Menu
-          color="neutral-2"
-          onClick={() => {
-            isMenuDisplay ? setIsMenuDisplay(false) : setIsMenuDisplay(true)
-          }}
-        />
+        <Box
+          direction="row"
+          align="center"
+        >
+          <Menu
+            color="neutral-2"
+            onClick={() => {
+              isMenuDisplay ? setIsMenuDisplay(false) : setIsMenuDisplay(true)
+            }}
+          />
+        </Box>
 
         <Box
           direction="row"
@@ -40,7 +46,7 @@ export default function Navbar() {
         </Box>
 
       </Box >
-      {isMenuDisplay && <SideBar />}
+      {isMenuDisplay && <SideBar update={() => setIsMenuDisplay(false)} />}
     </>
   );
 }

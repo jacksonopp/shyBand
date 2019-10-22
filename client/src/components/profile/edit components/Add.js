@@ -17,7 +17,7 @@ export default function Add({ category, update }) {
         round="full"
       >
         <AddIcon
-          size="small"
+
           color="light-1"
           onClick={() => {
             display ? setDisplay(false) : setDisplay(true)
