@@ -17,13 +17,15 @@ class Landing extends Component {
           <Button
             label="register"
             a11yTitle="login"
-            href="/register"
             color="neutral-2"
-            alignSelf="center" />
+            alignSelf="center"
+            onClick={() => this.props.history.push("/register")}
+          />
+
           <Button
             label="login"
             a11yTitle="login"
-            href="/login"
+            onClick={() => this.props.history.push("/login")}
             color="neutral-2"
             alignSelf="center" />
         </Box>
