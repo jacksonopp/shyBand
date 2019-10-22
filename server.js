@@ -34,6 +34,8 @@ require("./config/passport")(passport);
 // Routes
 app.use("/api/users", users);
 
+const router = express.Router();
+
 router.use(function (req, res) {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
