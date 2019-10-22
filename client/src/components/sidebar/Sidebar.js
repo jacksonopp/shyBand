@@ -4,61 +4,99 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import { Link } from "react-router-dom";
 
-import { Box } from 'grommet';
+import { Box, Text } from 'grommet';
+import { Dashboard as DashboardIcon, User as UserIcon, Search, ChatOption, Music, Configure, Logout } from 'grommet-icons';
 
 import "./dashboard.css"
 
 
 class Dashboard extends Component {
-    onLogoutClick = e => {
-        e.preventDefault();
-        this.props.logoutUser();
-    };
+	onLogoutClick = e => {
+		e.preventDefault();
+		this.props.logoutUser();
+		this.props.update();
+	};
 
-    render() {
-        const { user } = this.props.auth;
+	render() {
+		const { user } = this.props.auth;
 
-        return (
-            // <div className="dashboard">
-            <Box
-                pad={{
-                    left: "medium",
-                    right: "medium"
-                }}
-                margin={{
-                    top: "xlarge"
-                }}
-            >
-                <h4>
-                    <b>Hey there,</b> {user.name.split(" ")[0]}
-                    <p className="flow-text grey-text text-darken-1">
-                        You are logged into a full-stack{" "}
-                        <span style={{ fontFamily: "monospace" }}>MERN</span> app 👏
-              </p>
-                </h4>
-                <Link to="/dashboard" >dashboard</Link>
-                <Link to="/profile">profile</Link>
-                <Link to="/browse">browse</Link>
-                <Link to="/viewMessage">view messages</Link>
-                <Link to="/createBand">create a band</Link>
-                <Link to="/settings">settings</Link>
-                <Link to="#" onClick={this.onLogoutClick}>logout</Link>
-            </Box>
-            // </div>
-        );
-    }
+		return (
+
+			<Box
+				pad={{
+					left: "medium",
+					right: "medium",
+					top: "5vh"
+				}}
+				// margin={{
+				// 	top: "xlarge"
+				// }}
+				background="light-2"
+				height="100vh"
+				width={{
+					min: "218px",
+					max: "32vw"
+				}}
+				elevation="medium"
+			>
+				<Link to="/dashboard" onClick={() => this.props.update()}>
+					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
+						<DashboardIcon color="neutral-2" />
+						<Text margin="none">dashboard</Text>
+					</Box>
+				</Link>
+				<Link to="/profile" onClick={() => this.props.update()}>
+					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
+						<UserIcon color="neutral-2" />
+						<Text>my profile</Text>
+					</Box>
+				</Link>
+				<Link to="/browse" onClick={() => this.props.update()}>
+					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
+						<Search color="neutral-2" />
+						<Text>browse</Text>
+					</Box>
+				</Link>
+				<Link to="/viewMessage" onClick={() => this.props.update()}>
+					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
+						<ChatOption color="neutral-2" />
+						<Text>view messages</Text>
+					</Box>
+				</Link>
+				<Link to="/createBand" onClick={() => this.props.update()}>
+					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
+						<Music color="neutral-2" />
+						<Text>create a band</Text>
+					</Box>
+				</Link>
+				<Link to="/settings" onClick={() => this.props.update()}>
+					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
+						<Configure color="neutral-2" />
+						<Text>manage your bands</Text>
+					</Box>
+				</Link>
+				<Link to="#" onClick={this.onLogoutClick}>
+					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
+						<Logout color="neutral-2" />
+						<Text>log out</Text>
+					</Box>
+				</Link>
+			</Box>
+
+		);
+	}
 }
 
 Dashboard.propTypes = {
-    logoutUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired
+	logoutUser: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-    auth: state.auth
+	auth: state.auth
 });
 
 export default connect(
-    mapStateToProps,
-    { logoutUser }
+	mapStateToProps,
+	{ logoutUser }
 )(Dashboard);

@@ -16,9 +16,9 @@ const ThreadSchema = new Schema({
             ref: "Message"
         }
     ],
-    read: {
-        type: Boolean,
-        default: false
+    lastUpdated: {
+        type: Date,
+        default: Date.now()
     }
 })
 
