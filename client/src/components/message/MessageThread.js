@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 import { Box, Text, Heading } from "grommet";
 import { Previous } from "grommet-icons";
+import ScrollableFeed from 'react-scrollable-feed';
 
 import MessageInput from './MessageInput';
 
@@ -68,6 +69,8 @@ export default function MessageThread({ match }) {
           }}>{toUserName}</Heading>
         </Box>
       </div>
+      {/* message begin */}
+
       <Box
         className="messages"
         gap="small"
@@ -132,6 +135,8 @@ export default function MessageThread({ match }) {
         })
         }
       </Box>
+
+      {/* // message end */}
       <div className="message-input">
         < MessageInput
           threadId={threadId}

@@ -16,25 +16,39 @@ export default function UserSettings() {
       })
   }, [])
   return (
-    <Box
-      pad="medium"
-      margin={{
-        top: "8vh"
-      }}
-      direction="column"
-      align="start"
-    >
-      <Link to="/updateBio">
-        <Box
-          align="center"
-        >
-          <Heading level={2}>Update Bio</Heading>
-        </Box>
-      </Link>
-      <Heading level={3}>Manage Your Bands</Heading>
-      {bands.map(band => (
-        <p><Link to={`/manage/${band._id}`}>{band.bandName}</Link ></p>
-      ))}
-    </Box>
+    <>
+      <Heading level={3}
+        margin={{
+          top: "8vh",
+          left: "medium"
+        }}
+      >
+        Manage Your Bands
+          </Heading>
+      <Box
+        pad="medium"
+        direction="row"
+        align="start"
+        gap="small"
+        wrap={true}
+      >
+        {bands.map(band => (
+          <Link to={`/manage/${band._id}`}>
+            <Box
+              border={{
+                color: "neutral-2"
+              }}
+              round="4px"
+              pad="small"
+              margin={{
+                bottom: "small"
+              }}
+            >
+              {band.bandName}
+            </Box>
+          </Link >
+        ))}
+      </Box>
+    </>
   )
 }

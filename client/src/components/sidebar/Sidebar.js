@@ -34,7 +34,7 @@ class Dashboard extends Component {
 				background="light-2"
 				height="100vh"
 				width={{
-					min: "188px",
+					min: "218px",
 					max: "32vw"
 				}}
 				elevation="medium"
@@ -72,7 +72,7 @@ class Dashboard extends Component {
 				<Link to="/settings" onClick={() => this.props.update()}>
 					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
 						<Configure color="neutral-2" />
-						<Text>settings</Text>
+						<Text>manage your bands</Text>
 					</Box>
 				</Link>
 				<Link to="#" onClick={this.onLogoutClick}>
