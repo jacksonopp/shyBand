@@ -35,12 +35,17 @@ export default function UserProfile({ match }) {
       }}
     >
       <Link to="/browse"><Previous color="neutral-2" /></Link>
+
+
       <Profile
         userName={user.name}
         instruments={instruments}
         favBands={band}
         genres={genre}
-        userBands={userBands} />
+        userBands={userBands}
+        // TODO: im pretty sure showEdit is a security risk, so I want to go back and fix it
+        showEdit={false}
+      />
       <Box
         direction="column"
         align="center"

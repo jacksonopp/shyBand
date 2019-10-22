@@ -35,7 +35,14 @@ export default function Proflie() {
         top: "7vh"
       }}
     >
-      <Profile userName={user.name} instruments={instruments} favBands={band} genres={genre} userBands={userBands} />
+      <Profile
+        userName={user.name}
+        instruments={instruments}
+        favBands={band}
+        genres={genre}
+        userBands={userBands}
+        // TODO: im pretty sure showEdit is a security risk, so I want to go back and fix it
+        showEdit={true} />
     </Box>
   )
 }

@@ -3,8 +3,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Text, Heading, Image } from "grommet";
 
+import Add from "./edit components/Add"
+import Edit from "./edit components/Edit"
 
-export default function Profile({ userName, instruments, favBands, genres, userBands }) {
+//TODO: showEdit is a security risk
+export default function Profile({ userName, instruments, favBands, genres, userBands, showEdit }) {
   return (
     <Box
       pad="small"
@@ -44,6 +47,8 @@ export default function Profile({ userName, instruments, favBands, genres, userB
           align="center"
         >
           <Heading margin="none">{userName}</Heading>
+          {/* TODO: fix security here */}
+          {showEdit && <Edit />}
         </Box>
         {/* Instruments */}
         <Box
@@ -79,6 +84,7 @@ export default function Profile({ userName, instruments, favBands, genres, userB
             {favBands.map(band => (
               <span key={band.bandName}>{band.bandName} </span>
             ))}
+            {showEdit && <Add />}
           </Box>
         </Box>
         {/* Genres */}
