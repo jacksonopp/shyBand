@@ -8,7 +8,7 @@ import Edit from "./edit components/Edit";
 import Delete from "./edit components/Delete";
 
 //TODO: showEdit is a security risk
-export default function Profile({ userName, instruments, favBands, genres, userBands, showEdit, update }) {
+export default function Profile({ userName, instruments, favBands, genres, userBands, showEdit, update, profPic }) {
   return (
     <Box
       pad="small"
@@ -30,9 +30,15 @@ export default function Profile({ userName, instruments, favBands, genres, userB
       >
         <Box elevation="small">
           <Image
-            fit="cover"
-            src="http://www.fillmurray.com/100/100" alt={userName} />
+            fit="contain"
+            src={profPic} alt={userName}
+            style={{
+              width: "100px",
+              maxHeight: "100%"
+            }}
+          />
         </Box>
+        <Edit update={update} />
       </Box>
       {/* Profile Info */}
       <Box

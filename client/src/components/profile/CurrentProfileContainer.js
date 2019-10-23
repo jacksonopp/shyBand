@@ -37,7 +37,8 @@ export default function Proflie() {
         right: "medium"
       }}
       margin={{
-        top: "7vh"
+        top: "7vh",
+        bottom: "8vh"
       }}
     >
       <Profile
@@ -49,6 +50,7 @@ export default function Proflie() {
         // TODO: im pretty sure showEdit is a security risk, so I want to go back and fix it
         showEdit={true}
         update={() => getFromApi({ setUser, setInstruments, setBand, setGenre, setUserBands })}
+        profPic={user.profilePic}
       />
     </Box>
   )
