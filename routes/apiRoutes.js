@@ -223,7 +223,7 @@ module.exports = function (app) {
         }
         )
 
-        res.json({ message: dbMessage });
+        res.json({ dbThread });
     })
     // get all messages from a thread
     app.get("/api/thread/:id", async function (req, res) {
