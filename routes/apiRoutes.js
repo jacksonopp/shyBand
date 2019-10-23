@@ -127,6 +127,13 @@ module.exports = function (app) {
                 }
             )
         }
+        if (req.body.profilePic) {
+            const dbUser = await db.User.findOneAndUpdate(
+                { _id: id },
+                { profilePic: req.body.profilePic },
+                { new: true }
+            );
+        }
         res.json({ id });
 
 

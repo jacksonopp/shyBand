@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Link } from "react-router-dom";
-import { Box, Text } from 'grommet';
+import { Box, Text, Image } from 'grommet';
 
 export default function UserLI({ user }) {
 
@@ -25,7 +25,14 @@ export default function UserLI({ user }) {
         elevation="small"
       >
         <Box>
-          <img src="http://www.fillmurray.com/50/50" alt={user.name} />
+          <Image
+            src={user.profilePic}
+            alt={user.name}
+            fit="contain"
+            style={{
+              width: "50px",
+              maxHeight: "100%"
+            }} />
         </Box>
         <Box
           direction="column"

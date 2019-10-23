@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
@@ -29,7 +29,8 @@ import CreateBand from "./components/band/CreateBand"
 import BandProfile from "./components/band/BandProfile";
 import UserSettings from "./components/userSettings/UserSettings";
 import ManageBand from "./components/userSettings/ManageBand";
-import Sidebar from "./components/sidebar/Sidebar"
+import Sidebar from "./components/sidebar/Sidebar";
+import Hamburger from "./components/sidebar/Hamburger";
 
 
 // Check for token to keep user logged in
@@ -80,10 +81,10 @@ const routes = [
     path: "/ViewMessage",
     component: ViewMessages
   },
-  {
-    path: "/viewMessage/:id",
-    component: MessageThread
-  },
+  // {
+  //   path: "/viewMessage/:id",
+  //   component: MessageThread
+  // },
   {
     path: "/createBand",
     component: CreateBand
@@ -115,33 +116,42 @@ const theme = {
     }
   }
 }
-class App extends Component {
-  render() {
-    return (
-      <Grommet theme={theme}>
-        <Provider store={store}>
-          <Router>
-            <div className="App">
-              <div className="navbar">
-                <Navbar className="navBar" />
-              </div>
-              <Route exact path="/" component={Landing} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-              <Switch>
-                {routes.map(({ path, component }) => (
-                  <PrivateRoute
-                    key={path}
-                    exact path={path}
-                    component={component}
-                  />
-                ))}
-              </Switch>
+
+
+// class App extends Component 
+
+function App() {
+  const [isNavVisible, setIsNavVisible] = useState(true)
+  return (
+    <Grommet theme={theme}>
+      <Provider store={store}>
+        <Router>
+          <div className="App">
+            <Hamburger className="hamburger" />
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Switch>
+              {routes.map(({ path, component }) => (
+                <PrivateRoute
+                  key={path}
+                  exact path={path}
+                  component={component}
+                />
+              ))}
+              <PrivateRoute
+                exact path="/viewMessage/:id"
+                component={MessageThread}
+                update={() => { isNavVisible ? setIsNavVisible(false) : setIsNavVisible(true) }} />
+            </Switch>
+            <div className="navbar">
+              {isNavVisible && <Navbar className="navBar" />}
             </div>
-          </Router>
-        </Provider>
-      </Grommet>
-    );
-  }
+          </div>
+        </Router>
+      </Provider>
+    </Grommet>
+  );
 }
+
 export default App;

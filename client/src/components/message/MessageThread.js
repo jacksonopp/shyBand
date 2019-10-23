@@ -12,7 +12,7 @@ import MessageInput from './MessageInput';
 
 import "./messages.css"
 
-export default function MessageThread({ match }) {
+export default function MessageThread({ match, update }) {
   const user = jwtDecode(localStorage.jwtToken.substr(7));
   // console.log(user)
   const threadId = match.params.id;
@@ -40,6 +40,7 @@ export default function MessageThread({ match }) {
   // gets messages on page load
   useEffect(() => {
     getMessages();
+    update();
   }, [])
   // gets messages every 3 seconds
   useEffect(() => {
@@ -62,7 +63,12 @@ export default function MessageThread({ match }) {
           align="center"
           gap="small"
         >
-          <Link to="/ViewMessage"><Previous color="neutral-2" /></Link>
+          <Link
+            to="/ViewMessage"
+            onClick={() => update()}
+          >
+            <Previous color="neutral-2" />
+          </Link>
           <Heading margin={{
             top: "none",
             bottom: "small"

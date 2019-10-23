@@ -31,7 +31,8 @@ export default function UserProfile({ match }) {
     <Box
       pad="medium"
       margin={{
-        top: "7vh"
+        top: "7vh",
+        bottom: "8vh"
       }}
     >
       <Link to="/browse"><Previous color="neutral-2" /></Link>
@@ -45,6 +46,7 @@ export default function UserProfile({ match }) {
         userBands={userBands}
         // TODO: im pretty sure showEdit is a security risk, so I want to go back and fix it
         showEdit={false}
+        profPic={user.profilePic}
       />
       <Box
         direction="column"

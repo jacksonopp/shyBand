@@ -12,7 +12,7 @@ export default function BrowsePage() {
   const [genreList, setGenreList] = useState([]);
   const [genreSelect, setGenreSelect] = useState("");
   const [instList, setInstList] = useState([]);
-  const [instSelect, setInstSelect] = useState("")
+  const [instSelect, setInstSelect] = useState("");
   useEffect(() => {
     const token = localStorage.jwtToken.substr(7);
     request.get(`/api/users/all/${token}`)
@@ -39,11 +39,11 @@ export default function BrowsePage() {
       pad={{
         left: "medium",
         right: "medium"
-
+      }}
+      margin={{
+        top: "7vh"
       }}
     >
-      <h1>Browse</h1>
-
       <Box
         direction="row"
         gap="small"
