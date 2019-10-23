@@ -27,12 +27,12 @@ export default function Dashboard() {
   return (
     <Box
       margin={{
-        top: "8vh"
+        top: "7vh"
       }}
       pad="medium"
       gap="small"
     >
-      <Heading level="2">Recent Messages</Heading>
+      <Heading level="2" margin="none">Recent Messages</Heading>
       {recentMessages.map(message => (
         <Link to={`viewMessage/${message._id}`}>
           <Box

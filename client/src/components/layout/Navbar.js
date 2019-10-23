@@ -21,7 +21,7 @@ export default function Navbar() {
         elevation='medium'
         height="50px"
       >
-        <Box
+        {/* <Box
           direction="row"
           align="center"
         >
@@ -31,7 +31,7 @@ export default function Navbar() {
               isMenuDisplay ? setIsMenuDisplay(false) : setIsMenuDisplay(true)
             }}
           />
-        </Box>
+        </Box> */}
 
         <Box
           direction="row"
@@ -46,7 +46,7 @@ export default function Navbar() {
         </Box>
 
       </Box >
-      {isMenuDisplay && <SideBar update={() => setIsMenuDisplay(false)} />}
+      {/* {isMenuDisplay && <SideBar update={() => setIsMenuDisplay(false)} />} */}
     </>
   );
 }

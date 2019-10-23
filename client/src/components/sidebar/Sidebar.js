@@ -22,66 +22,72 @@ class Dashboard extends Component {
 
 		return (
 
-			<Box
-				pad={{
-					left: "medium",
-					right: "medium",
-					top: "5vh"
-				}}
-				// margin={{
-				// 	top: "xlarge"
-				// }}
-				background="light-2"
-				height="100vh"
-				width={{
-					min: "218px",
-					max: "32vw"
-				}}
-				elevation="medium"
-			>
-				<Link to="/dashboard" onClick={() => this.props.update()}>
-					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
-						<DashboardIcon color="neutral-2" />
-						<Text margin="none">dashboard</Text>
-					</Box>
-				</Link>
-				<Link to="/profile" onClick={() => this.props.update()}>
-					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
-						<UserIcon color="neutral-2" />
-						<Text>my profile</Text>
-					</Box>
-				</Link>
-				<Link to="/browse" onClick={() => this.props.update()}>
-					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
-						<Search color="neutral-2" />
-						<Text>browse</Text>
-					</Box>
-				</Link>
-				<Link to="/viewMessage" onClick={() => this.props.update()}>
-					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
-						<ChatOption color="neutral-2" />
-						<Text>view messages</Text>
-					</Box>
-				</Link>
-				<Link to="/createBand" onClick={() => this.props.update()}>
-					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
-						<Music color="neutral-2" />
-						<Text>create a band</Text>
-					</Box>
-				</Link>
-				<Link to="/settings" onClick={() => this.props.update()}>
-					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
-						<Configure color="neutral-2" />
-						<Text>manage your bands</Text>
-					</Box>
-				</Link>
-				<Link to="#" onClick={this.onLogoutClick}>
-					<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
-						<Logout color="neutral-2" />
-						<Text>log out</Text>
-					</Box>
-				</Link>
-			</Box>
+			<div style={{
+				position: "fixed",
+				top: 0,
+				zIndex: 9000
+			}}>
+				<Box
+					pad={{
+						left: "medium",
+						right: "medium",
+						top: "5vh"
+					}}
+					// margin={{
+					// 	top: "xlarge"
+					// }}
+					background="light-2"
+					height="100vh"
+					width={{
+						min: "218px",
+						max: "32vw"
+					}}
+					elevation="medium"
+				>
+					<Link to="/dashboard" onClick={() => this.props.update()}>
+						<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
+							<DashboardIcon color="neutral-2" />
+							<Text margin="none">dashboard</Text>
+						</Box>
+					</Link>
+					<Link to="/profile" onClick={() => this.props.update()}>
+						<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
+							<UserIcon color="neutral-2" />
+							<Text>my profile</Text>
+						</Box>
+					</Link>
+					<Link to="/browse" onClick={() => this.props.update()}>
+						<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
+							<Search color="neutral-2" />
+							<Text>browse</Text>
+						</Box>
+					</Link>
+					<Link to="/viewMessage" onClick={() => this.props.update()}>
+						<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
+							<ChatOption color="neutral-2" />
+							<Text>view messages</Text>
+						</Box>
+					</Link>
+					<Link to="/createBand" onClick={() => this.props.update()}>
+						<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
+							<Music color="neutral-2" />
+							<Text>create a band</Text>
+						</Box>
+					</Link>
+					<Link to="/settings" onClick={() => this.props.update()}>
+						<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
+							<Configure color="neutral-2" />
+							<Text>manage your bands</Text>
+						</Box>
+					</Link>
+					<Link to="#" onClick={this.onLogoutClick}>
+						<Box direction="row" align="center" margin={{ top: "small", bottom: "small" }} gap="small">
+							<Logout color="neutral-2" />
+							<Text>log out</Text>
+						</Box>
+					</Link>
+				</Box>
+			</div>
 
 		);
 	}

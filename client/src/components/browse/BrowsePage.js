@@ -39,11 +39,11 @@ export default function BrowsePage() {
       pad={{
         left: "medium",
         right: "medium"
-
+      }}
+      margin={{
+        top: "7vh"
       }}
     >
-      <h1>Browse</h1>
-
       <Box
         direction="row"
         gap="small"
