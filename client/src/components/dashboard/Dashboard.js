@@ -4,9 +4,12 @@ import jwtDecode from "jwt-decode";
 import { Link } from 'react-router-dom';
 
 import { Box, Heading, Text } from 'grommet';
+import { User } from 'grommet-icons';
+
 export default function Dashboard() {
-  const token = localStorage.jwtToken.substr(7)
+  const token = localStorage.jwtToken.substr(7);
   const userID = jwtDecode(token).id
+  const userName = jwtDecode(token).name
   const [recentMessages, setRecentMessages] = useState([]);
   const [user, setUser] = useState({});
   const [bands, setBands] = useState([]);
@@ -32,7 +35,17 @@ export default function Dashboard() {
       pad="medium"
       gap="small"
     >
-      <Heading level="2" margin="none">Recent Messages</Heading>
+      {/* Welcome */}
+      <Box
+        margin={{
+          bottom: "medium"
+        }}
+      >
+        <Heading level="2">Welcome <Text size="xlarge" weight="normal">{userName}</Text></Heading>
+        <Text>Want to <Link to="/profile">update your profile? <User color="neutral-2" /></Link></Text>
+      </Box>
+      {/* Recent Messages */}
+      <Heading level="2" margin="none">Your Recent Messages</Heading>
       {recentMessages.map(message => (
         <Link to={`viewMessage/${message._id}`}>
           <Box
@@ -50,6 +63,7 @@ export default function Dashboard() {
           </Box>
         </Link>
       ))}
+      {/* Bands with Requests */}
       <Heading level="2">Bands That Have Requests</Heading>
       {bands.map(band => (
         <Link to={`manage/${band._id}`}>

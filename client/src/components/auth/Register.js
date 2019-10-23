@@ -88,8 +88,8 @@ class Register extends Component {
               gap="xsmall"
             >
               <TextInput
-                placeholder="name"
-                aria-label="name"
+                placeholder="username"
+                aria-label="username"
                 onChange={this.onChange}
                 value={this.state.name}
                 error={errors.name}
