@@ -4,7 +4,7 @@ import request from "superagent";
 
 import { Box, Heading, TextInput, Form, Button } from "grommet";
 
-export default function CreateBand() {
+export default function CreateBand({ history }) {
   const token = localStorage.jwtToken.substr(7);
   const [bandName, setBandName] = useState("");
   const [role, setRole] = useState("");
@@ -50,7 +50,7 @@ export default function CreateBand() {
                   })
                   .then(res => {
                     console.log(res.body.dbBand._id)
-                    window.location.href = `/band/${res.body.dbBand._id}`
+                    history.push(`/band/${res.body.dbBand._id}`)
                   })
               }
             }

@@ -4,7 +4,7 @@ import request from "superagent";
 
 import { Box, Button, Heading, Text, TextInput } from 'grommet';
 
-export default function BandProfile({ match }) {
+export default function BandProfile({ match, history }) {
   const [bandId, setBandId] = useState("");
   const [bandName, setBandName] = useState("");
   const [members, setMembers] = useState([]);
@@ -77,7 +77,7 @@ export default function BandProfile({ match }) {
                 })
                 .then(res => {
                   console.log(res.body)
-                  window.location.href = `/profile/${res.body.bandOwner}`
+                  history.push(`/profile/${res.body.bandOwner}`)
                 })
             }
           }
