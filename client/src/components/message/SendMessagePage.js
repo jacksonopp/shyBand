@@ -5,7 +5,7 @@ import { Send } from 'grommet-icons';
 
 import request from "superagent";
 
-export default function SendMessagePage({ match }) {
+export default function SendMessagePage({ match, history }) {
   const id = match.params.id;
   const [message, setMessage] = useState("");
   const [send, setSend] = useState({});
@@ -36,7 +36,6 @@ export default function SendMessagePage({ match }) {
         value={message}
         onChange={e => setMessage(e.target.value)}
       />
-      <Text>{message}</Text>
       <Button
         color="neutral-2"
         icon={<Send color="neutral-2" />}
@@ -54,7 +53,9 @@ export default function SendMessagePage({ match }) {
                 toUser: id,
                 fromUser: token
               })
-              .then(res => console.log(res.body))
+              .then(res => {
+                history.push(`/viewMessage/${res.body.dbThread._id}`)
+              })
           }
         }
       />
