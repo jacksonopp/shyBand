@@ -3,7 +3,7 @@ import request from "superagent";
 
 import { Box, Button, Heading, TextInput, Form } from 'grommet';
 
-export default function UpdateBio() {
+export default function UpdateBio({ history }) {
   const [primaryInstrument, setPrimaryInstrument] = useState("");
   const [userToken, setUserToken] = useState("");
   const [favBand, setFavBand] = useState("");
@@ -61,8 +61,8 @@ export default function UpdateBio() {
                     genre
                   })
                   .then(res => {
-                    console.log(res.body)
-                    window.location.href = `/profile`
+                    console.log(res.body);
+                    history.push(`/profile`)
                   })
                   .catch(err => console.log(err))
               }
