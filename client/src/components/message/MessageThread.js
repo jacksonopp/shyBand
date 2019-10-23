@@ -78,9 +78,13 @@ export default function MessageThread({ match, update }) {
       {/* message begin */}
 
       <Box
-        className="messages"
+        // className="messages"
         gap="small"
         direction="column"
+        margin={{
+          top: "7vh",
+          bottom: "10vh"
+        }}
       >
         {messages.map(message => {
           if (message.toUser._id === user.id) {
