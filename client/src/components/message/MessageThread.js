@@ -82,7 +82,7 @@ export default function MessageThread({ match, update }) {
         gap="small"
         direction="column"
         margin={{
-          top: "7vh",
+          top: "10vh",
           bottom: "10vh"
         }}
       >
